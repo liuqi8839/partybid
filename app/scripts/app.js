@@ -19,6 +19,7 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
+
       .when('/', {
 
         templateUrl: 'views/create_activity.html',
