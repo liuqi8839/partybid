@@ -3,14 +3,17 @@
  */
 angular.module('partybidApp')
     .controller('ActivityListCtrl', function ($scope, $location) {
+       // alert(6);
         $scope.ActivitySignUp = function () {
             $location.path('/activity_sign_up');
         };
 
-        var activity_names=JSON.parse(localStorage.getItem(['activity_names'])||[]);
-        $scope.activitys=activity_names;
 
         $scope.CreateActivity = function () {
+
             $location.path('/create_activity');
+
         }
+        var activity_names=JSON.parse(localStorage.getItem('activity_names'));
+        $scope.activitys=activity_names;
     });

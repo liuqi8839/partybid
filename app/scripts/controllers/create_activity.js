@@ -10,8 +10,15 @@ angular.module('partybidApp')
             $location.path('/activity_list')
         }
 
+        var activity_names;
+
         $scope.ActivitySignUp = function (activity_name) {
-            var activity_names=JSON.parse(localStorage.getItem(['activity_names'])||[]);
+            if(localStorage.getItem('activity_names')) {
+                activity_names=JSON.parse(localStorage.getItem('activity_names'));
+            }
+            else{
+                activity_names=new Array();
+            }
             activity_names.unshift(activity_name);//把元素添加到数组的开头，并返回数组的长度
             //localStorage 只能存储字符串
             localStorage['activity_names']=JSON.stringify(activity_names);
