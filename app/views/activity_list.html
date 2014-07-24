@@ -9,12 +9,13 @@
     活动列表
     <div class="header-right">
         <button ng-click="CreateActivity()" class="side-slide-trigger btn-style btn-4">创建活动</button>
+        <!--创建按钮，跳转至创建活动页面-->
     </div>
 </header>
 <div id="wrapper" class="wrapper">
     <ul class="list-style-2">
-        <p ng-repeat="name in activitys">{{name}}</p>
-
+        <button class="side-slide-trigger btn-style btn-3" ng-repeat="name in activity_show">{{name}}</button>
+        <!--展示所有已经创建的活动-->
     </ul>
 </div>
 </body>

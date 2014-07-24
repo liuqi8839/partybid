@@ -20,7 +20,7 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
 
-      .when('/', {
+      .when('/create_activity', {
 
         templateUrl: 'views/create_activity.html',
         controller: 'CreateActivityCtrl'
@@ -30,7 +30,7 @@ angular
             templateUrl: 'views/activity_sign_up.html',
             controller: 'ActivitySignUpCtrl'
         })
-      .when('/activity_list', {
+      .when('/', {
             templateUrl: 'views/activity_list.html',
             controller: 'ActivityListCtrl'
       })

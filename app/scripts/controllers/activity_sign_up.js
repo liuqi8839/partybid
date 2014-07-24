@@ -4,9 +4,9 @@
 angular.module('partybidApp')
     .controller('ActivitySignUpCtrl', function ($scope, $location) {
         $scope.ActivityList = function () {
-            $location.path('/activity_list')
+            $location.path('/')
         };
-        var activity_names=JSON.parse(localStorage.getItem(['activity_names'])||[]);
-        var now_activity=activity_names[0];
-        $scope.now_activity=now_activity;
+        var activity_use=JSON.parse(localStorage.getItem(['activity_names'])||[]);
+        var now_activity=activity_use[0];//数组中第0项的名称，用于展示在活动报名页面
+        $scope.now_show=now_activity;
     });

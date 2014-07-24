@@ -5,10 +5,12 @@
     <title></title>
 </head>
 <body>
-<header><p>{{now_activity}}报名</p>
+<header><p>活动报名：{{now_show}}</p>
+    <!--展示当前活动名称-->
 
     <div class="header-left">
         <button ng-click="ActivityList()" class="side-slide-trigger btn-style btn-4">返回</button>
+        <!--返回至活动列表页面-->
     </div>
     <div class="header-right">
         <button href="#" class="side-slide-trigger btn-style btn-4">开始</button>
@@ -18,8 +20,8 @@
 
 <footer>
     <ul class="footer-nav footer-nav-2tabs">
-        <li ><a href="#"><br />报名</a></li>
-        <li ><a href="#"><br />竞价</a></li>
+        <li ><a  ng-disabled="false"><br />报名</a></li>
+        <li ><a  ng-disabled="false"><br />竞价</a></li>
     </ul>
 </footer>
 
