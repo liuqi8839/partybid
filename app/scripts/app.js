@@ -21,7 +21,6 @@ angular
     $routeProvider
 
       .when('/create_activity', {
-
         templateUrl: 'views/create_activity.html',
         controller: 'CreateActivityCtrl'
       })

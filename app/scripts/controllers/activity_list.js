@@ -7,7 +7,10 @@ angular.module('partybidApp')
 
     .controller('ActivityListCtrl', function ($scope, $location) {
        // alert(6);
-        $scope.ActivitySignUp = function () {
+        $scope.ActivitySignUp = function (name) {
+            var activity_show=Array();
+            activity_show.unshift(name);
+            localStorage['show_name']=JSON.stringify(activity_show);
             $location.path('/activity_sign_up');
         }
 
@@ -17,10 +20,10 @@ angular.module('partybidApp')
          }
 
         $scope.CreateActivity = function () {
-
             $location.path('/create_activity');
-
         }
+
         var activity_use=JSON.parse(localStorage.getItem('activity_names'));
         $scope.activity_show=activity_use;//用于展示已经创建的活动
-    });
+
+    })

@@ -6,6 +6,7 @@
 
 angular.module('partybidApp')
     .controller('CreateActivityCtrl', function ($scope, $location) {
+        var activity_show;//用于在报名页面显示活动名称
         var activity_back;//用于展示（显示或隐藏）返回按钮
         var activity_use;//用于存储之前保存的数组，便于增删查改
         var p;//用于判断名称是否重复，1就是重复，2就是不重复
@@ -16,6 +17,8 @@ angular.module('partybidApp')
         $scope.ActivityList = function () {
             $location.path('/')
         }
+
+        activity_show=new Array();//每次都给activity_show重新赋值
 
         $scope.ActivitySignUp = function (activity_new) {
             if(localStorage.getItem('activity_names')) {//之前有已创建的活动，判断名称是否重复
@@ -37,7 +40,9 @@ angular.module('partybidApp')
             else {
                 $scope.tips='';
                 activity_use.unshift(activity_new);//把元素添加到数组的开头，并返回数组的长度
+                activity_show.unshift(activity_new);
                 localStorage['activity_names'] = JSON.stringify(activity_use);
+                localStorage['show_name']=JSON.stringify(activity_show);
 
                 //localStorage 只能存储字符串
                 //JSON.stringify(); 将数组装换成字符串
@@ -45,4 +50,4 @@ angular.module('partybidApp')
                 $location.path('/activity_sign_up');
             }
         }
-    });
+    })
