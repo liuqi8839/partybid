@@ -43,7 +43,6 @@ angular.module('partybidApp')
                 activity_show.unshift(activity_new);
                 localStorage['activity_names'] = JSON.stringify(activity_use);
                 localStorage['show_name']=JSON.stringify(activity_show);
-
                 //localStorage 只能存储字符串
                 //JSON.stringify(); 将数组装换成字符串
                 //JSON.parse();  将字符串装换成数组

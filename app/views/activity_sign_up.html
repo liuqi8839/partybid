@@ -9,11 +9,11 @@
     <!--展示当前活动名称-->
 
     <div class="header-left">
-        <button ng-click="ActivityList()" class="side-slide-trigger btn-style btn-4">返回</button>
+        <button ng-click="BackList()" class="side-slide-trigger btn-style btn-4">返回</button>
         <!--返回至活动列表页面-->
     </div>
     <div class="header-right">
-        <button href="#" class="side-slide-trigger btn-style btn-4">开始</button>
+        <button  ng-click="StartActivity() " ng-disabled="start_show" class="btn btn-style btn-2" >开始</button>
     </div>
 </header>
 
