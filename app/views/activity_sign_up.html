@@ -5,23 +5,55 @@
     <title></title>
 </head>
 <body>
-<header><p>活动报名：{{now_show}}</p>
+<header>
+    <p>
+        {{current_activity}}（已报名：{{sign_up_number}}人）
+    </p>
     <!--展示当前活动名称-->
 
     <div class="header-left">
-        <button ng-click="BackList()" class="side-slide-trigger btn-style btn-4">返回</button>
+        <button ng-click="BackToList()" class="side-slide-trigger btn-style btn-4">
+            返回
+        </button>
         <!--返回至活动列表页面-->
     </div>
-    <div class="header-right">
-        <button  ng-click="StartActivity() " ng-disabled="start_show" class="btn btn-style btn-2" >开始</button>
+    <div class="header-right" ng-switch="status">
+        <button  ng-click="StartActivity()" ng-disabled="{{able_start==0}}" class="btn btn-style btn-2" >
+            {{show_start}}
+        </button>
+    <!--当所有活动都未进行时，所有活动显示可点击状态的“开始”按钮，当有一个活动进行时，正在进行的活动显示可点击的“结束”按钮，其他活动显示不可点击状态的“开始”按钮。-->
     </div>
 </header>
 
+<!--<div id="page_head" class="wrapper">-->
+    <!--<ul class="list-style-2">-->
+        <!--<a ng-repeat="SMS in Messages" style="text-align:center;"-->
+                <!--class="side-slide-trigger btn-style btn-3">-->
+            <!--{{SMS.name}}{{SMS.phone_number}}-->
+        <!--</a>-->
+        <!--&lt;!&ndash;展示所有已经创建的活动&ndash;&gt;-->
+    <!--</ul>-->
+<!--</div>-->
+<div id="page_head" class="wrapper scrollable">
+    <div class="form-wrapper" ng-repeat="SMS in Messages">
+        <a class="btn-style btn-3">{{SMS.name}}<i>{{SMS.phone_number}}</i></a>
+    </div>
+</div>
 
 <footer>
     <ul class="footer-nav footer-nav-2tabs">
-        <li ><a  ng-disabled="false"><br />报名</a></li>
-        <li ><a  ng-disabled="false"><br />竞价</a></li>
+        <li >
+            <a  ng-disabled="false">
+                <br/>
+                报名
+            </a>
+        </li>
+        <li >
+            <a  ng-disabled="false">
+                <br/>
+                竞价
+            </a>
+        </li>
     </ul>
 </footer>
 

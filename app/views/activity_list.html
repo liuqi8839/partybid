@@ -7,14 +7,25 @@
 <body>
 <header>
     活动列表
+    <div class="header-left">
+
+    </div>
     <div class="header-right">
-        <button ng-click="CreateActivity()" class="side-slide-trigger btn-style btn-4">创建活动</button>
+        <button
+                ng-click="GotoCreateActivity()"
+                class="side-slide-trigger btn-style btn-4">
+            创建活动
+        </button>
         <!--创建按钮，跳转至创建活动页面-->
     </div>
 </header>
-<div id="wrapper" class="wrapper">
-    <ul class="list-style-2">
-        <button ng-click="ActivitySignUp(name)" class="side-slide-trigger btn-style btn-3" ng-repeat="name in activity_show" >{{name}}</button>
+<div id="wrapper" class="wrapper" >
+    <ul class="list-style-2"   ng-repeat="name in activities_name">
+        <button ng-click="GotoActivitySignUp(name)"
+                class="btn-style btn-3 {{BackGroundColor(name)}}">
+            {{name}}
+            <i> > </i>
+        </button>
         <!--展示所有已经创建的活动-->
     </ul>
 </div>
