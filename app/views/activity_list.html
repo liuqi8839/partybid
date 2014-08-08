@@ -11,22 +11,20 @@
 
     </div>
     <div class="header-right">
-        <button
-                ng-click="GotoCreateActivity()"
-                class="side-slide-trigger btn-style btn-4">
+        <button ng-disabled="{{CreateButtonStatus==0}}" class="btn btn-style btn-4" ng-click="GotoCreateActivity()">
             创建活动
         </button>
         <!--创建按钮，跳转至创建活动页面-->
     </div>
 </header>
+
 <div id="wrapper" class="wrapper" >
     <ul class="list-style-2"   ng-repeat="name in activities_name">
-        <button ng-click="GotoActivitySignUp(name)"
-                class="btn-style btn-3 {{BackGroundColor(name)}}">
-            {{name}}
+        <button ng-click="GotoActivitySignUp(name.activity)"
+                class="btn-style btn-3 {{BackGroundColor(name.activity)}}">
+            {{name.activity}}
             <i> > </i>
         </button>
-        <!--展示所有已经创建的活动-->
     </ul>
 </div>
 </body>

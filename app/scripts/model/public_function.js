@@ -1,6 +1,14 @@
 /**
  * Created by liuqi on 14-7-31.
  */
+function init_key(key){
+    if(get_value(key)){
+        var names=parse_value(key);
+    }else{
+        names=new Array();
+    }
+    return names;
+}
 
 function get_value(key){
     var flag=false;
@@ -19,10 +27,6 @@ function unshift_value(value,name,key){
     localStorage[key] = JSON.stringify(name);
 }
 
-function revise_value(value,key){
-    localStorage[key]=JSON.stringify(value);
-}
-
 function judge_new(value,key){
     var p=3;
     if(get_value(key)) {
@@ -33,15 +37,82 @@ function judge_new(value,key){
 
 function judge_repeat(value,key) {
     var p=1;
-    var activities_name = parse_value(key);
-    for(var n=0;n<activities_name.length;n++){
-        if(value == activities_name[n]){
+    var names = parse_value(key);
+    for(var n=0;n<names.length;n++){
+        if(value == names[n].activity){
             p=2;
             break;
         }
-        else{
-            p=1;
-        }
     }
     return p;
+}
+
+function change_background_color(name,ongoing){
+    var flag='';
+    if(name==ongoing){
+        flag= 'btn-warning';
+    }else{
+        flag='';
+    }
+    return flag;
+}
+
+function get_ongoing_activity(){
+    if(!get_value('Activities')){
+        ongoing_activity='null';
+    }
+    else {
+        for (var i = 0; i < parse_value('Activities').length; i++) {
+            if (parse_value('Activities')[i].status == 1) {
+                var ongoing_activity = parse_value('Activities')[i].activity;
+                break;
+            }
+            else {
+                ongoing_activity = 'null'
+            }
+        }
+    }
+    return ongoing_activity;
+}
+
+function get_selected_activity(){
+    for(var i=0;i<parse_value('Activities').length;i++){
+        if(parse_value('Activities')[i].selected==1){
+            var selected_activity=parse_value('Activities')[i].activity;
+        }
+    }
+    return selected_activity;
+}
+
+function get_ongoing_price(){
+    if(!get_value('Price')){
+        ongoing_activity='never';
+        ongoing_count='never';
+    }
+    else {
+        var price=init_key('Price');
+        for (var i = 0; i < price.length; i++) {
+            if (price[i].status == 1) {
+                var ongoing_activity = price[i].activity;
+                var ongoing_count =price[i].count;
+                break;
+            }
+            else {
+                ongoing_activity = 'null';
+                ongoing_count = 'null';
+            }
+        }
+    }
+    return {activity:ongoing_activity,count:ongoing_count}
+}
+
+function get_selected_price(){
+    var price=init_key('Price');
+    for(var i=0;i<price.length;i++){
+        if(price[i].selected==1){
+            var selected_activity=price[i].activity;
+            var selected_count=price[i].count;
+        }
+    }
+    return {activity:selected_activity,count:selected_count}
 }

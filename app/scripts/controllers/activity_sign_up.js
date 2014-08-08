@@ -4,47 +4,37 @@
 angular.module('partybidApp')
     .controller('ActivitySignUpCtrl', function ($scope, $location) {
 
-        $scope.current_activity = parse_value('CurrentActivity');
+        $scope.current_activity = get_selected_activity();
 
         ($scope.page_head = function(){
-            $scope.Messages=parse_value($scope.current_activity);
+            $scope.sign_up_number=sign_up_sms().numbers;
+            $scope.Messages=sign_up_sms().messages;
+        })()
 
-            if(!get_value($scope.current_activity)){
-                $scope.sign_up_number=0;
-            }
-            else{
-                $scope.sign_up_number=$scope.Messages.length;
-            }
-        })();
-
-
-        determine_StartButton();
+        $scope.ButtonStatus=determine_Button().status;
+        $scope.ButtonText = determine_Button().name;
 
         $scope.StartActivity=function(){
-            ChangeOngoing('OngoingActivity','CurrentActivity');
-            determine_StartButton();
+            if (ChangeOngoing()==true){
+                $location.path('/price_list');
+            }
+            else{
+                $scope.ButtonStatus=determine_Button().status;
+                $scope.ButtonText = determine_Button().name;
+            }
         }
 
-        function determine_StartButton(){
-            $scope.judge_button=JudgeButton('OngoingActivity','CurrentActivity');
-            if ($scope.judge_button==1) {
-                $scope.able_start = 1;
-                var button_name = '开始';
+        $scope.GoToPriceList=function(){
+            if(get_ongoing_activity()=='null'){
+                $location.path('/price_list');
             }
-            else {
-                if ($scope.judge_button == 3) {
-                    $scope.able_start = 1;
-                    button_name = '结束';
-                }
-                else {
-                    $scope.able_start = 0;
-                    button_name = '开始';
-                }
+            else{
+                alert('尚有报名未结束，不能开始竞价！')
             }
-            $scope.show_start = button_name;
         }
 
         $scope.BackToList = function () {
             $location.path('/')
-        };
+        }
+
     });

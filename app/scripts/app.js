@@ -20,6 +20,14 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
 
+        .when('/price_list', {
+            templateUrl: 'views/price_list.html',
+            controller: 'PriceListCtrl'
+        })
+        .when('/price_activity', {
+            templateUrl: 'views/price_activity.html',
+            controller: 'PriceActivityCtrl'
+        })
       .when('/create_activity', {
         templateUrl: 'views/create_activity.html',
         controller: 'CreateActivityCtrl'
@@ -33,6 +41,15 @@ angular
             templateUrl: 'views/activity_list.html',
             controller: 'ActivityListCtrl'
       })
+        .when('/price_result', {
+            templateUrl: 'views/price_result.html',
+            controller: 'PriceResultCtrl'
+        })
+
+        .when('/price_statistics', {
+            templateUrl: 'views/price_statistics.html',
+            controller: 'PriceStatisticsCtrl'
+        })
       .otherwise({
         redirectTo: '/'
       });

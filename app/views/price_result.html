@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<header>
+    <p>
+        结果 ({{current_price.activity}}：竞价{{current_price.count}})(竞价人数：{{result_numbers}})
+    </p>
+
+    <div class="header-left">
+        <button ng-click="BackToPriceList()" class="side-slide-trigger btn-style btn-4">
+            返回
+        </button>
+    </div>
+    <div class="header-right">
+        <button  ng-click="GotoToPriceStatistics()"  class="side-slide-trigger btn-style btn-4">
+            统计
+        </button>
+    </div>
+</header>
+
+<div class="wrapper scrollable">
+    <div class="form-wrapper" ng-repeat="SMS in result_messages">
+        <a class="btn-style btn-3">{{SMS.sequence}}.{{SMS.name}}<p>&nbsp&nbsp{{SMS.phone}}</p><i>￥{{SMS.price}}</i></a>
+    </div>
+</div>
+
+<footer>
+    <ul class="footer-nav footer-nav-2tabs">
+
+    </ul>
+</footer>
+
+</body>
+</html>

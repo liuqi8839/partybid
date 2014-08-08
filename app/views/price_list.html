@@ -7,7 +7,7 @@
 <body>
 <header>
     <p>
-        {{current_activity}}（已报名：{{sign_up_number}}人）
+        {{current_activity}}:竞价列表
     </p>
 
     <div class="header-left">
@@ -15,36 +15,38 @@
             返回
         </button>
     </div>
-
     <div class="header-right">
-        <button  ng-click="StartActivity()" ng-disabled="{{ButtonStatus==0}}" class="btn btn-style btn-2" >
-            {{ButtonText}}
+        <button  ng-click="StartNewPrice()"  class="btn btn-style btn-2" ng-disabled="{{StartButtonStatus==0}}">
+            开始
         </button>
-    </div>
+          </div>
 </header>
 
-<div id="page_head" class="wrapper scrollable">
-    <div class="form-wrapper" ng-repeat="SMS in Messages">
-        <a class="btn-style btn-3">{{SMS.name}}<i>{{SMS.phone}}</i></a>
-    </div>
+<div id="wrapper" class="wrapper">
+    <ul class="list-style-2"   ng-repeat="price in Prices">
+        <button ng-click="GotoPriceActivity(price)"
+                class="btn-style btn-3 {{BackGroundColor(price)}}">
+            竞价{{price}}
+            <i> > </i>
+        </button>
+    </ul>
 </div>
 
 <footer>
     <ul class="footer-nav footer-nav-2tabs">
         <li >
-            <a  ng-disabled="false">
+            <a  ng-click="GoToSignUp()" ng-disabled="true">
                 <br/>
                 报名
             </a>
         </li>
         <li >
-            <a  ng-disabled="true" ng-click="GoToPriceList()">
+            <a  ng-disabled="false">
                 <br/>
                 竞价
             </a>
         </li>
     </ul>
 </footer>
-
 </body>
 </html>
