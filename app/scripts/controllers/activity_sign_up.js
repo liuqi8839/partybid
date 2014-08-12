@@ -37,4 +37,4 @@ angular.module('partybidApp')
             $location.path('/')
         }
 
-    });
+    })

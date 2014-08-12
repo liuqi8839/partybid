@@ -3,7 +3,7 @@
     创建活动
 
     <div class="header-left">
-       <button ng-show="activity_back" ng-click="GotoActivityList()" class="side-slide-trigger btn-style btn-4">
+       <button ng-show="activity_back" ng-click="GotoActivityList()" class="side-slide-btn btn btn-primary">
            返回
        </button>
         <!--左上角返回按钮的显示与隐藏，返回至活动列表页面-->
@@ -14,7 +14,7 @@
     <div class="wrapper-inner">
         <div class="form-wrapper">
             <h5>活动名称</h5>
-            <input type="text" class="input-full" style="clear:center;height: 32px;" ng-model="new_activity"/>
+            <input type="text" class="input-full" align="center"  ng-model="new_activity"/>
             <!--ng-model把值绑定给activity_name中-->
             <p style="color: red">
                 {{tips}}
@@ -22,7 +22,7 @@
             <!--红色的名称重复提示-->
         </div>
     </div>
-    <button ng-disabled="!new_activity" ng-click="CreateActivity(new_activity)" class="btn btn-style btn-2">
+    <button ng-disabled="!new_activity" ng-click="CreateActivity(new_activity)" class="side-slide-trigger btn btn-primary btn-2">
         创建
     </button>
     <!--创建按钮点击允许状态-->

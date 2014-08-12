@@ -6,7 +6,7 @@ angular.module('partybidApp')
     .controller('PriceActivityCtrl', function ($scope, $location) {
         $scope.EndPrice=function(){
             if(EndOngoingPrice()==true){
-                $location.path('/price_result');
+                $location.path('/price_result/'+'show');
             }
         }
 

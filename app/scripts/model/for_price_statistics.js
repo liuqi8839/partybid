@@ -16,6 +16,28 @@ function statistics_sms(){
     return price_counts;
 }
 
+function successful_bid(){
+    var bid=new Array();
+    var price_counts=statistics_sms();
+    for(var i=0;i<price_counts.length;i++){
+        if(price_counts[i].count==1){
+            bid=price_counts[i];
+            break;
+        }
+    }
+    return bid;
+}
+
+function successful_bidder(){
+    var price_information=result_add_name();
+    for(var i=0;i<price_information.length;i++){
+        if(price_information[i].price==successful_bid().price){
+            var successful_bidder=price_information[i];
+        }
+    }
+    return successful_bidder;
+}
+
 function statistics_price_counts(){
     var price_statistics=statistics_price_information();
     var price_counts=new Array();

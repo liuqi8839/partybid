@@ -12,12 +12,12 @@
     </p>
 
     <div class="header-left">
-        <button ng-click="BackToPriceList()" class="side-slide-trigger btn-style btn-4">
+        <button ng-click="BackToPriceList()" class="side-slide-trigger btn btn-primary">
             返回
         </button>
     </div>
     <div class="header-right">
-        <button  ng-click="GotoToPriceResult()"  class="side-slide-trigger btn-style btn-4">
+        <button  ng-click="GotoToPriceResult()"  class="side-slide-trigger btn btn-primary">
             列表
         </button>
     </div>
@@ -27,5 +27,10 @@
         <a class="btn-style btn-3">￥{{SMS.price}}<i>{{SMS.count}}人</i></a>
     </div>
 </div>
+<footer align="center">
+    <p>
+    <h4 ><i>竞价结果：￥{{successful_bidder.price}}</i>～～～～出价者：<i>{{successful_bidder.name}}:{{successful_bidder.phone}}</i></h4>
+    </p>
+</footer>
 </body>
 </html>

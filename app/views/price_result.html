@@ -4,19 +4,39 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
+<body >
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div  class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">竞价结果</h3>
+            </div>
+            <div >
+                <h4 class="modal-title">{{successful_bidder.name}}<i>￥{{successful_bidder.price}}</i></h4>
+                <p>{{successful_bidder.phone}}</p>
+                <p><h5>竞价成功！</h5></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <header>
     <p>
         结果 ({{current_price.activity}}：竞价{{current_price.count}})(竞价人数：{{result_numbers}})
     </p>
 
     <div class="header-left">
-        <button ng-click="BackToPriceList()" class="side-slide-trigger btn-style btn-4">
+        <button ng-click="BackToPriceList()" class="side-slide-trigger btn btn-primary">
             返回
         </button>
     </div>
     <div class="header-right">
-        <button  ng-click="GotoToPriceStatistics()"  class="side-slide-trigger btn-style btn-4">
+        <button  ng-click="GotoToPriceStatistics()"  class="side-slide-trigger btn  btn-primary">
             统计
         </button>
     </div>
@@ -28,10 +48,8 @@
     </div>
 </div>
 
-<footer>
-    <ul class="footer-nav footer-nav-2tabs">
-
-    </ul>
+<footer align="center" >
+    <h4 ><i>竞价结果：￥{{successful_bidder.price}}</i>～～～～出价者：<i>{{successful_bidder.name}}:{{successful_bidder.phone}}</i></h4>
 </footer>
 
 </body>

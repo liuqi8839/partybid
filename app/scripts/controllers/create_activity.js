@@ -5,6 +5,7 @@
 
 angular.module('partybidApp')
     .controller('CreateActivityCtrl', function ($scope, $location) {
+
         $scope.activity_back=get_value('Activities');
 
         $scope.CreateActivity=function(new_activity) {

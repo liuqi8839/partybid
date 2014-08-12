@@ -11,7 +11,7 @@ function determine_CreatButton(){
         CreateButtonStatus=0;
         ongoing_activity=get_ongoing_price().activity;
     }
-    return {activity:ongoing_activity,status:CreateButtonStatus}
+    return {activity:ongoing_activity,status:CreateButtonStatus};
 }
 
 function change_background_color(name,ongoing){

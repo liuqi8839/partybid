@@ -7,7 +7,7 @@ function result_sms(){
     if(get_value('PriceInformation')){
         result_final=result_after_sequence();
     }
-    return {numbers:result_final.length,messages:result_final}
+    return {numbers:result_final.length,messages:result_final};
 }
 
 function result_after_sequence(){
@@ -46,7 +46,7 @@ function result_add_name(){
                     price_information[i].name=sign_up_information[n].name;
                 }
             }
-            price_messages.push({price:price_information[i].price,name:price_information[i].name, phone: price_information[i].phone_number})
+            price_messages.push({price:price_information[i].price,name:price_information[i].name, phone: price_information[i].phone_number});
         }
     }
     return price_messages;

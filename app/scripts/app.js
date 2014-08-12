@@ -41,7 +41,7 @@ angular
             templateUrl: 'views/activity_list.html',
             controller: 'ActivityListCtrl'
       })
-        .when('/price_result', {
+        .when('/price_result/:show_hide', {
             templateUrl: 'views/price_result.html',
             controller: 'PriceResultCtrl'
         })

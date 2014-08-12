@@ -62,9 +62,10 @@ function get_ongoing_activity(){
         ongoing_activity='null';
     }
     else {
-        for (var i = 0; i < parse_value('Activities').length; i++) {
-            if (parse_value('Activities')[i].status == 1) {
-                var ongoing_activity = parse_value('Activities')[i].activity;
+        var activities=init_key('Activities');
+        for (var i = 0; i < activities.length; i++) {
+            if (activities[i].status == 1) {
+                var ongoing_activity = activities[i].activity;
                 break;
             }
             else {
@@ -76,9 +77,10 @@ function get_ongoing_activity(){
 }
 
 function get_selected_activity(){
-    for(var i=0;i<parse_value('Activities').length;i++){
-        if(parse_value('Activities')[i].selected==1){
-            var selected_activity=parse_value('Activities')[i].activity;
+    var activities=init_key('Activities');
+    for(var i=0;i<activities.length;i++){
+        if(activities[i].selected==1){
+            var selected_activity=activities[i].activity;
         }
     }
     return selected_activity;
@@ -103,7 +105,7 @@ function get_ongoing_price(){
             }
         }
     }
-    return {activity:ongoing_activity,count:ongoing_count}
+    return {activity:ongoing_activity,count:ongoing_count};
 }
 
 function get_selected_price(){
@@ -114,5 +116,5 @@ function get_selected_price(){
             var selected_count=price[i].count;
         }
     }
-    return {activity:selected_activity,count:selected_count}
+    return {activity:selected_activity,count:selected_count};
 }

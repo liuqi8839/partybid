@@ -67,6 +67,6 @@ function sign_up_sms(){
         }
         sign_up_numbers=sign_up_messages.length;
     }
-    return {numbers:sign_up_numbers,messages:sign_up_messages}
+    return {numbers:sign_up_numbers,messages:sign_up_messages};
 }
 
