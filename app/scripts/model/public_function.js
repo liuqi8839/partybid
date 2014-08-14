@@ -27,25 +27,25 @@ function unshift_value(value,name,key){
     localStorage[key] = JSON.stringify(name);
 }
 
-function judge_new(value,key){
-    var p=3;
-    if(get_value(key)) {
-        p=judge_repeat(value,key);
-    }
-    return p;
-}
-
-function judge_repeat(value,key) {
-    var p=1;
-    var names = parse_value(key);
-    for(var n=0;n<names.length;n++){
-        if(value == names[n].activity){
-            p=2;
-            break;
-        }
-    }
-    return p;
-}
+//function judge_new(value,key){
+//    var p=3;
+//    if(get_value(key)) {
+//        p=judge_repeat(value,key);
+//    }
+//    return p;
+//}
+//
+//function judge_repeat(value,key) {
+//    var p=1;
+//    var names = parse_value(key);
+//    for(var n=0;n<names.length;n++){
+//        if(value == names[n].activity){
+//            p=2;
+//            break;
+//        }
+//    }
+//    return p;
+//}
 
 function change_background_color(name,ongoing){
     var flag='';
@@ -57,34 +57,34 @@ function change_background_color(name,ongoing){
     return flag;
 }
 
-function get_ongoing_activity(){
-    if(!get_value('Activities')){
-        ongoing_activity='null';
-    }
-    else {
-        var activities=init_key('Activities');
-        for (var i = 0; i < activities.length; i++) {
-            if (activities[i].status == 1) {
-                var ongoing_activity = activities[i].activity;
-                break;
-            }
-            else {
-                ongoing_activity = 'null'
-            }
-        }
-    }
-    return ongoing_activity;
-}
+//function get_ongoing_activity(){
+//    if(!get_value('Activities')){
+//        ongoing_activity='null';
+//    }
+//    else {
+//        var activities=init_key('Activities');
+//        for (var i = 0; i < activities.length; i++) {
+//            if (activities[i].status == 1) {
+//                var ongoing_activity = activities[i].name;
+//                break;
+//            }
+//            else {
+//                ongoing_activity = 'null'
+//            }
+//        }
+//    }
+//    return ongoing_activity;
+//}
 
-function get_selected_activity(){
-    var activities=init_key('Activities');
-    for(var i=0;i<activities.length;i++){
-        if(activities[i].selected==1){
-            var selected_activity=activities[i].activity;
-        }
-    }
-    return selected_activity;
-}
+//function get_selected_activity(){
+//    var activities=init_key('Activities');
+//    for(var i=0;i<activities.length;i++){
+//        if(activities[i].selected==1){
+//            var selected_activity=activities[i].name;
+//        }
+//    }
+//    return selected_activity;
+//}
 
 function get_ongoing_price(){
     if(!get_value('Price')){
@@ -113,7 +113,7 @@ function get_selected_price(){
     for(var i=0;i<price.length;i++){
         if(price[i].selected==1){
             var selected_activity=price[i].activity;
-            var selected_count=price[i].count;
+            var selected_count=price[i].count
         }
     }
     return {activity:selected_activity,count:selected_count};

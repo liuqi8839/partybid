@@ -44,12 +44,9 @@ function price_sms(){
                         price_information[i].name=sign_up_information[n].name;
                     }
                 }
-                price_messages.push(
-                    {sequence:sequence_number,price:price_information[i].price,
-                        name:price_information[i].name, phone: price_information[i].phone_number}
-                );
+                price_messages.push({sequence:sequence_number,price:price_information[i].price,name:price_information[i].name, phone: price_information[i].phone_number})
             }
         }
     }
-    return {numbers:price_messages.length,messages:price_messages};
+    return {numbers:price_messages.length,messages:price_messages}
 }

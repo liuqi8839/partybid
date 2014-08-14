@@ -42,7 +42,7 @@ var native_accessor = {
                 var SendMessage = 'Sorry，报名已经结束！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
-            else if(get_ongoing_activity()=='null'){
+            else if(Activity.hasOngoingActivity()==false){
                 SendMessage = '活动尚未开始，请稍候！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
@@ -80,7 +80,7 @@ var native_accessor = {
             Name = Name.replace("BM","");
             Name = Name.replace(/\s+/g,"");
             var sign_up_information = init_key('SignUpInformation');
-            var messages = {activity:get_ongoing_activity(),name: Name, phone_number: PhoneNumber};
+            var messages = {activity:Activity.getOngoingActivity(),name: Name, phone_number: PhoneNumber};
             unshift_value(messages,sign_up_information,'SignUpInformation')
         }
         function freshActivityList(){
@@ -98,7 +98,7 @@ var native_accessor = {
         var message = message_json.messages[0].message;
         price_after_accept();
         function price_after_accept(){
-            if(get_ongoing_activity()!='null' || get_ongoing_price().activity=='never') {
+            if(Activity.hasOngoingActivity()!=false || get_ongoing_price().activity=='never') {
                 var SendMessage = '对不起，竞价尚未开始！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }

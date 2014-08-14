@@ -5,24 +5,26 @@ angular.module('partybidApp')
 
     .controller('ActivityListCtrl', function ($scope, $location) {
 
-        if (!get_value('Activities')) {
+        if (Activity.getActivities() == '') {
             $location.path('/create_activity');
         }
 
-        $scope.activities_name=parse_value('Activities');
+        $scope.activities = Activity.getActivities();
 
-        $scope.CreateButtonStatus=determine_CreatButton().status;
+        $scope.CreateButtonStatus = determine_CreatButton().status;
 
         $scope.BackGroundColor=function(name){
             return change_background_color(name,determine_CreatButton().activity);
-        }
+        };
 
         $scope.GotoActivitySignUp = function (name) {
-            activity_select(name);
+            var temp = Activity.findBy({"activity": name});
+            var activity = new Activity(temp.activity,temp.status,temp.selected);
+            activity.pitchOn();
             $location.path('/activity_sign_up');
-        }
+        };
 
         $scope.GotoCreateActivity = function () {
             $location.path('/create_activity');
         }
-    })
+    });

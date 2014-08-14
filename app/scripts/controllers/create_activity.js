@@ -6,20 +6,21 @@
 angular.module('partybidApp')
     .controller('CreateActivityCtrl', function ($scope, $location) {
 
-        $scope.activity_back=get_value('Activities');
+        $scope.activity_back = Activity.hasActivities();
 
-        $scope.CreateActivity=function(new_activity) {
-            if (judge_new(new_activity, 'Activities') == 2) {
+        $scope.CreateActivity = function(new_activity)  {
+            if (Activity.findRepeat(new_activity) == true) {
                 $scope.tips = '活动名称重复';
             }
-            else {
+            else if (Activity.findRepeat(new_activity) == false ) {
                 $scope.tips = '';
-                create_new(new_activity);
+                var  newActivity = new Activity(new_activity, 2, 1);
+                newActivity.save();
                 $location.path('/activity_sign_up');
             }
-        }
+        };
 
         $scope.GotoActivityList = function () {
             $location.path('/');
         }
-    })
+    });
