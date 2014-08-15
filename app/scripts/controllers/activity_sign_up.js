@@ -4,7 +4,7 @@
 angular.module('partybidApp')
     .controller('ActivitySignUpCtrl', function ($scope, $location) {
 
-        $scope.current_activity = Activity.getSelectedActivity();
+        $scope.current_activity = Activity.getSelectedActivity().activity;
 
         ($scope.page_head = function(){
             $scope.sign_up_number=sign_up_sms().numbers;
@@ -15,18 +15,21 @@ angular.module('partybidApp')
         $scope.ButtonText = determine_Button().name;
 
         $scope.StartActivity=function(){
-
-            if (ChangeOngoing()==true){
+            var temp= Activity.findBy({"selected": 1});
+            var activity = new Activity(temp.activity,temp.status,temp.selected);
+            if (Activity.hasOngoingActivity() == false){
+                activity.runActivity();
+            }
+            else if(confirm('您确定要结束本次报名吗？') == true){
+                activity.stopActivity();
                 $location.path('/price_list');
             }
-            else{
-                $scope.ButtonStatus=determine_Button().status;
-                $scope.ButtonText = determine_Button().name;
-            }
+            $scope.ButtonStatus=determine_Button().status;
+            $scope.ButtonText = determine_Button().name;
         };
 
         $scope.GoToPriceList=function(){
-            if(Activity.getOngoingActivity()=='') {
+            if(Activity.hasOngoingActivity() == false) {
                 $location.path('/price_list');
             }
             else{

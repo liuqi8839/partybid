@@ -12,32 +12,31 @@ Activity.prototype.save = function() {
 
 Activity.prototype.pitchOn = function() {
     var activities = Activity.getActivities();
-    _.findWhere(activities, {activity: this.activity}).selected = 1;
+    _.findWhere(activities, {activity: this.activity} || {activity: ''} ).selected = 1;
     localStorage['Activities'] = JSON.stringify(activities);
 };
 
 Activity.prototype.unPitch = function() {
     var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {selected: ''}).selected = 2;
+    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).selected = 2;
     localStorage['Activities'] = JSON.stringify(activities);
 };
 
 Activity.prototype.runActivity = function() {
     var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {selected: ''}).status = 1;
+    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = 1;
     localStorage['Activities'] = JSON.stringify(activities);
 };
 
 Activity.prototype.stopActivity = function() {
     var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {selected: ''}).status = 2;
+    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = 2;
     localStorage['Activities'] = JSON.stringify(activities);
 };
 
 Activity.findRepeat = function(name) {
     var activities = Activity.getActivities();
-    var findOn = _.some(activities,function(anyActivity){return anyActivity.activity === name});
-    return findOn;
+    return _.some(activities,function(anyActivity){return anyActivity.activity === name});
 };
 
 Activity.findBy = function(value){
@@ -66,19 +65,11 @@ Activity.hasSelectedActivity = function(){
 };
 
 Activity.getOngoingActivity = function()  {
-
-    if(Activity.hasActivities() == true) {
-        var activities = Activity.getActivities();
-        var ongoing_activity = (_.findWhere(activities, {status: 1}) || {activity: ''}).activity;
-    }
-    return ongoing_activity;
+    var activities = Activity.getActivities();
+    return (_.findWhere(activities, {status: 1}) || {activity: ''});
 };
 
 Activity.getSelectedActivity = function() {
-    if(Activity.hasActivities() == true) {
-        var activities = Activity.getActivities();
-        var selected_activity = (_.findWhere(activities, {selected: 1}) || {activity: ''}).activity;
-    }
-    return selected_activity;
+    var activities = Activity.getActivities();
+    return (_.findWhere(activities, {selected: 1}) || {activity: ''});
 };
-

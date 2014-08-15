@@ -13,25 +13,7 @@ function get_prices(){
     return price_counts;
 }
 
-function creat_new_price(){
-    var prices=init_key('Price');
-    for(var i=0;i<prices.length;i++){
-        prices[i].selected=2;
-    }
-    unshift_value({"activity":Activity.getSelectedActivity(),"count":new_count(),"status":1,"selected":1},prices,'Price');
-}
 
-function new_count(){
-    var count=1;
-    var price=init_key('Price');
-    for(var i=0;i<price.length;i++){
-        if(price[i].activity==Activity.getSelectedActivity()){
-            count=price[i].count+1;
-            break;
-        }
-    }
-    return count;
-}
 
 function determine_StartButton(){
     if(get_ongoing_price().activity=='null' ||get_ongoing_price().activity=='never'){

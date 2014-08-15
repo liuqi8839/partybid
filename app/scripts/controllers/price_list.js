@@ -8,12 +8,13 @@ angular.module('partybidApp')
         $scope.StartButtonStatus=determine_StartButton().status;
 
         $scope.BackGroundColor=function(count){
-            return change_background_color(count,determine_StartButton().ongoing);
+            var ongoing_activity = Price.getOngoingPrice().activity;
+            return (count == ongoing_activity) ? 'btn-warning' : "";
         };
 
         $scope.current_activity = Activity.getSelectedActivity();
 
-        $scope.Prices=get_prices();
+        $scope.Prices=Price.hasPrice();
 
         $scope.StartNewPrice = function(){
             if (judge_sign_up()==2){

@@ -11,7 +11,7 @@
 
     </div>
     <div class="header-right">
-        <button ng-disabled="{{CreateButtonStatus==0}}" class="side-slide-trigger btn btn-primary"  ng-click="GotoCreateActivity()">
+        <button ng-disabled="!CreateButtonStatus" class="side-slide-trigger btn btn-primary"  ng-click="GotoCreateActivity()">
             创建活动
         </button>
         <!--创建按钮，跳转至创建活动页面-->

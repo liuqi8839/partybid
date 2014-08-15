@@ -11,10 +11,11 @@ angular.module('partybidApp')
 
         $scope.activities = Activity.getActivities();
 
-        $scope.CreateButtonStatus = determine_CreatButton().status;
+        $scope.CreateButtonStatus = Price.hasOngoingPrice();
 
-        $scope.BackGroundColor=function(name){
-            return change_background_color(name,determine_CreatButton().activity);
+        $scope.BackGroundColor = function(name){
+            var ongoing_activity = Price.hasOngoingPrice() ? Price.getOngoingPrice().activity : Activity.getOngoingActivity().activity;
+            return (name == ongoing_activity) ? 'btn-warning' : "";
         };
 
         $scope.GotoActivitySignUp = function (name) {

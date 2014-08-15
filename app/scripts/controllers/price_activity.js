@@ -10,7 +10,7 @@ angular.module('partybidApp')
             }
         }
 
-        $scope.current_price =get_selected_price();
+        $scope.current_price =Price.getSelectedPrice();
 
         ($scope.prices = function(){
             $scope.price_number=price_sms().numbers;
