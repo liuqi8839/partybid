@@ -41,7 +41,7 @@ Activity.findRepeat = function(name) {
 
 Activity.findBy = function(value){
     var activities = Activity.getActivities();
-    return (_.findWhere(activities , value)|| {selected: ''});
+    return (_.findWhere(activities , value)|| [{activity: ''}]);
 };
 
 Activity.setActivities = function (activities) {
@@ -53,15 +53,15 @@ Activity.getActivities = function () {
 };
 
 Activity.hasActivities = function(){
-    return (Activity.getActivities() != '');
+    return (Activity.getActivities() != []);
 };
 
 Activity.hasOngoingActivity = function() {
-    return (Activity.getOngoingActivity() != '');
+    return (Activity.getOngoingActivity().activity != '');
 };
 
 Activity.hasSelectedActivity = function(){
-    return (Activity.getSelectedActivity() != '');
+    return (Activity.getSelectedActivity().activity != '');
 };
 
 Activity.getOngoingActivity = function()  {

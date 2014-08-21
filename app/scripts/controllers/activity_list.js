@@ -5,7 +5,7 @@ angular.module('partybidApp')
 
     .controller('ActivityListCtrl', function ($scope, $location) {
 
-        if (Activity.getActivities() == '') {
+        if (Activity.hasActivities() == false) {
             $location.path('/create_activity');
         }
 

@@ -7,14 +7,14 @@ angular.module('partybidApp')
         $scope.current_activity = Activity.getSelectedActivity().activity;
 
         ($scope.page_head = function(){
-            $scope.sign_up_number=sign_up_sms().numbers;
-            $scope.Messages=sign_up_sms().messages;
+            $scope.sign_up_number = sign_up_sms().numbers;
+            $scope.Messages = sign_up_sms().messages;
         })();
 
-        $scope.ButtonStatus=determine_Button().status;
+        $scope.ButtonStatus = determine_Button().status;
         $scope.ButtonText = determine_Button().name;
 
-        $scope.StartActivity=function(){
+        $scope.StartActivity = function(){
             var temp= Activity.findBy({"selected": 1});
             var activity = new Activity(temp.activity,temp.status,temp.selected);
             if (Activity.hasOngoingActivity() == false){
@@ -24,7 +24,7 @@ angular.module('partybidApp')
                 activity.stopActivity();
                 $location.path('/price_list');
             }
-            $scope.ButtonStatus=determine_Button().status;
+            $scope.ButtonStatus = determine_Button().status;
             $scope.ButtonText = determine_Button().name;
         };
 

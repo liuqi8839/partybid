@@ -37,7 +37,7 @@ Price.prototype.save = function() {
 
 Price.findBy = function(value){
     var prices = Price.getPrice();
-    return (_.findWhere(prices , value)|| {selected: ''});
+    return (_.findWhere(prices , value)|| {activity: '' , count: '' , status: '' , selected: '' });
 };
 
 Price.setPrice = function (prices) {
@@ -49,23 +49,23 @@ Price.getPrice = function () {
 };
 
 Price.hasPrice = function(){
-    return (Price.getPrice() != '');
+    return (Price.getPrice() != []);
 };
 
 Price.hasOngoingPrice = function() {
-    return (Price.getOngoingPrice() != '');
+    return (Price.getOngoingPrice().activity != '');
 };
 
 Price.hasSelectedPrice = function() {
-    return (Price.getSelectedPrice() != '');
+    return (Price.getSelectedPrice().activity != '');
 };
 
 Price.getOngoingPrice = function() {
     var prices = Price.getPrice();
-    return (_.findWhere(prices , {status: 1} ) || {activity: '' ,count: ''});
+    return ( _.findWhere(prices ,{status: 1}) || {activity:''} );
 };
 
 Price.getSelectedPrice = function() {
     var prices = Price.getPrice();
-    return (_.findWhere(prices, {selected: 1})|| {activity: '' ,count: ''});
+    return ( _.findWhere(prices ,{selected: 1}) || {activity: ''} );
 };

@@ -1,28 +1,29 @@
 /**
  * Created by liuqi on 14-7-31.
  */
-function init_key(key){
-    if(get_value(key)){
-        var names=parse_value(key);
-    }else{
-        names=new Array();
+function init_key(key) {
+    if(get_value(key)) {
+        var names = parse_value(key);
+    }
+    else{
+        names = [];
     }
     return names;
 }
 
-function get_value(key){
-    var flag=false;
+function get_value(key) {
+    var flag = false;
     if(localStorage.getItem(key)) {
-        flag=true;
+        flag = true;
     }
     return flag;
 }
 
-function parse_value(key){
+function parse_value(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-function unshift_value(value,name,key){
+function unshift_value(value,name,key) {
     name.unshift(value);
     localStorage[key] = JSON.stringify(name);
 }
@@ -46,16 +47,6 @@ function unshift_value(value,name,key){
 //    }
 //    return p;
 //}
-
-function change_background_color(name,ongoing){
-    var flag='';
-    if(name==ongoing){
-        flag= 'btn-warning';
-    }else{
-        flag='';
-    }
-    return flag;
-}
 
 //function get_ongoing_activity(){
 //    if(!get_value('Activities')){
@@ -86,10 +77,10 @@ function change_background_color(name,ongoing){
 //    return selected_activity;
 //}
 
-function get_ongoing_price(){
-    if(!get_value('Price')){
-        ongoing_activity='never';
-        ongoing_count='never';
+function get_ongoing_price() {
+    if(!get_value('Price')) {
+        ongoing_activity = 'never';
+        ongoing_count = 'never';
     }
     else {
         var price=init_key('Price');
