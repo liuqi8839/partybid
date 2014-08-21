@@ -11,33 +11,53 @@ Price.prototype.save = function() {
     Price.setPrice(prices);
 };
 
-//Price.prototype.pitchOn = function() {
-//    var prices = Price.getPrice();
-//    _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 1;
-//    localStorage['prices'] = JSON.stringify(prices);
-//};
-//
-//Price.prototype.unPitch = function() {
-//    var prices = Price.getPrice();
-//    _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 2;
-//    localStorage['prices'] = JSON.stringify(prices);
-//};
-//
-//Price.prototype.runPrice = function() {
-//    var prices = Price.getPrice();
-//    _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 1;
-//    localStorage['prices'] = JSON.stringify(prices);
-//};
-//
-//Price.prototype.stopPrice = function() {
-//    var prices = Price.getPrice();
-//    _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 2;
-//    localStorage['prices'] = JSON.stringify(prices);
-//};
+Price.prototype.newCount = function() {
+    if( Price.getAllCounts() == []) {
+        this.count = 1;
+    }
+    else{
+        this.count = Price.getAllCounts().length + 1 ;
+    }
+};
+
+Price.prototype.pitchOn = function() {
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 1;
+    localStorage['Price'] = JSON.stringify(prices);
+};
+
+Price.prototype.unPitch = function() {
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 2;
+    localStorage['Price'] = JSON.stringify(prices);
+};
+
+Price.prototype.runPrice = function() {
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 1;
+    localStorage['Price'] = JSON.stringify(prices);
+};
+
+Price.prototype.stopPrice = function() {
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 2;
+    localStorage['Price'] = JSON.stringify(prices);
+};
+
+Price.getAllCounts = function() {
+    var prices = Price.getPrice();
+    var price_counts = [];
+    for(var i = 0 ; i < prices.length ; i++){
+        if(prices[i].activity == Activity.getSelectedActivity().activity) {
+            price_counts.push(prices[i].count);
+        }
+    }
+    return price_counts;
+};
 
 Price.findBy = function(value){
     var prices = Price.getPrice();
-    return (_.findWhere(prices , value)|| {activity: '' , count: '' , status: '' , selected: '' });
+    return (_.findWhere(prices , value) || {activity: '' , count: ''});
 };
 
 Price.setPrice = function (prices) {

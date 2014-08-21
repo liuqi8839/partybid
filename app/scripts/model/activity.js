@@ -36,7 +36,9 @@ Activity.prototype.stopActivity = function() {
 
 Activity.findRepeat = function(name) {
     var activities = Activity.getActivities();
-    return _.some(activities,function(anyActivity){return anyActivity.activity === name});
+    return _.some(activities , function(anyActivity) {
+        return anyActivity.activity === name
+    });
 };
 
 Activity.findBy = function(value){

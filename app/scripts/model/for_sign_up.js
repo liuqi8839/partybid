@@ -27,21 +27,21 @@ function determine_Button(){
             button_status = 0;
         }
     }
-    return {name:button_name,status:button_status};
+    return {name: button_name , status: button_status};
 }
 
 function sign_up_sms(){
     var sign_up_messages = [];
-    if(!get_value('SignUpInformation')){
-        var sign_up_numbers=0;
+    if(!get_value('SignUpInformation')) {
+        var sign_up_numbers = 0;
     }
     else {
         for (var i = 0; i < parse_value('SignUpInformation').length; i++) {
             if (parse_value('SignUpInformation')[i].activity == Activity.getSelectedActivity().activity) {
-                sign_up_messages.push({name: parse_value('SignUpInformation')[i].name, phone: parse_value('SignUpInformation')[i].phone_number})
+                sign_up_messages.push({name: parse_value('SignUpInformation')[i].name , phone: parse_value('SignUpInformation')[i].phone_number})
             }
         }
         sign_up_numbers=sign_up_messages.length;
     }
-    return {numbers:sign_up_numbers,messages:sign_up_messages}
+    return {numbers: sign_up_numbers , messages: sign_up_messages}
 }

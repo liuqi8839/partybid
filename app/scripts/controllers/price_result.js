@@ -5,11 +5,13 @@ angular.module('partybidApp')
 
     .controller('PriceResultCtrl', function ($scope, $location,$routeParams) {
 
-        $scope.current_price =get_selected_price();
-        $scope.result_numbers=result_sms().numbers;
-        $scope.result_messages=result_sms().messages;
-        $scope.successful_bidder=successful_bidder();
-        var show=$routeParams.show_hide;
+        $scope.current_price = Price.getSelectedPrice();
+        $scope.result_numbers = result_sms().numbers;
+        $scope.result_messages = result_sms().messages;
+        $scope.successful_bidder = successful_bidder();
+
+        var show = $routeParams.show_hide;
+
         $('#myModal').modal(show);
         setTimeout(
             function(){
@@ -17,9 +19,13 @@ angular.module('partybidApp')
             },3000);
 
         $scope.BackToPriceList = function () {
+            var temp = Price.findBy({"selected": 1});
+            var price = new Price(temp.activity , temp.count , temp.status , temp.selected);
+            price.unPitch();
             $location.path('/price_list');
-        }
+        };
+        
         $scope.GotoToPriceStatistics = function () {
             $location.path('/price_statistics');
         }
-    })
+    });

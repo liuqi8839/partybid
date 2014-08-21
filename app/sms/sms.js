@@ -23,7 +23,7 @@ var native_accessor = {
 
         }
         else{
-            if(message_title=='jj'){
+            if(message_title == 'jj'){
                 this.price_sms(message_json);
             }
             else{
@@ -38,11 +38,11 @@ var native_accessor = {
         var message = message_json.messages[0].message;
         sign_up_after_accept();
         function sign_up_after_accept(){
-            if(get_ongoing_price().activity!='null' &&get_ongoing_price().activity!='never'){
+            if(Price.hasOngoingPrice() == true){
                 var SendMessage = 'Sorry，报名已经结束！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
-            else if(Activity.hasOngoingActivity()==false){
+            else if(Activity.hasOngoingActivity() == false){
                 SendMessage = '活动尚未开始，请稍候！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
@@ -66,13 +66,14 @@ var native_accessor = {
             var sign_up_information = init_key('SignUpInformation');
             for (var n = 0; n < sign_up_information.length; n++) {
                 if (PhoneNumber == sign_up_information[n].phone_number
-                    && sign_up_information[n].activity==get_ongoing_activity()) {
+                    && sign_up_information[n].activity == Activity.getOngoingActivity().activity) {
                     p = 2;
                     break;
                 }
             }
             return p;
         }
+
         function sign_up_add_new() {
             var Name = message.replace("bm","");
             Name = Name.replace("Bm","");
@@ -80,7 +81,7 @@ var native_accessor = {
             Name = Name.replace("BM","");
             Name = Name.replace(/\s+/g,"");
             var sign_up_information = init_key('SignUpInformation');
-            var messages = {activity:Activity.getOngoingActivity(),name: Name, phone_number: PhoneNumber};
+            var messages = {activity:Activity.getOngoingActivity().activity , name: Name , phone_number: PhoneNumber};
             unshift_value(messages,sign_up_information,'SignUpInformation')
         }
         function freshActivityList(){
@@ -98,11 +99,11 @@ var native_accessor = {
         var message = message_json.messages[0].message;
         price_after_accept();
         function price_after_accept(){
-            if(Activity.hasOngoingActivity()!=false || get_ongoing_price().activity=='never') {
+            if(Activity.hasOngoingActivity() !=false) {
                 var SendMessage = '对不起，竞价尚未开始！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
-            else if (get_ongoing_price().activity == 'null') {
+            else if (Price.hasOngoingPrice() == false) {
                 SendMessage = 'Sorry，出价已经结束！';
                 native_accessor.send_sms(PhoneNumber, SendMessage);
             }
@@ -120,8 +121,8 @@ var native_accessor = {
             var sign_up_information = init_key('SignUpInformation');
             var flag = 1;
             for (var i = 0; i < sign_up_information.length; i++) {
-                if (sign_up_information[i].activity == get_ongoing_price().activity && sign_up_information[i].phone_number == PhoneNumber) {
-                    flag = 2
+                if (sign_up_information[i].activity == Price.getOngoingPrice().activity && sign_up_information[i].phone_number == PhoneNumber) {
+                    flag = 2;
                     break;
                 }
             }
@@ -143,8 +144,8 @@ var native_accessor = {
             var price_information = init_key('PriceInformation');
             for (var n = 0; n < price_information.length; n++) {
                 if (PhoneNumber == price_information[n].phone_number
-                    && price_information[n].activity==get_ongoing_price().activity
-                    && price_information[n].count==get_ongoing_price().count) {
+                    && price_information[n].activity == Price.getOngoingPrice().activity
+                    && price_information[n].count == Price.getOngoingPrice().count) {
                     p = 2;
                     break;
                 }
@@ -157,14 +158,14 @@ var native_accessor = {
             price = price.replace("jJ","");
             price = price.replace("JJ","");
             price = price.replace(/\s+/g,"");
-            var price_information=init_key('PriceInformation');
-            var messages = {activity:get_ongoing_price().activity,count:get_ongoing_price().count,price: price, phone_number: PhoneNumber};
-            unshift_value(messages,price_information,'PriceInformation')
+            var price_information = init_key('PriceInformation');
+            var messages = {activity: Price.getOngoingPrice().activity , count: Price.getOngoingPrice().count , price: price , phone_number: PhoneNumber};
+            unshift_value(messages , price_information , 'PriceInformation');
         }
 
         function freshPriceList(){
             var PriceScope = angular.element("#prices").scope();
-            if(PriceScope!=undefined) {
+            if(PriceScope != undefined) {
                 if (typeof(PriceScope.prices) == "function") {
                     PriceScope.$apply(PriceScope.prices.bind(PriceScope));
                 }

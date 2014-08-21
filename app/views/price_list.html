@@ -7,7 +7,7 @@
 <body>
 <header>
     <p>
-        {{current_activity}}:竞价列表
+        {{current_activity.activity}}:竞价列表
     </p>
 
     <div class="header-left">
@@ -25,7 +25,7 @@
 <div id="wrapper" class="wrapper">
     <ul class="list-style-2"   ng-repeat="price in Prices">
         <button ng-click="GotoPriceActivity(price)"
-                class="btn-style btn-3 {{BackGroundColor(price)}}">
+                class="btn-style btn-3 {{PriceColor(price)}}">
             竞价{{price}}
             <i> > </i>
         </button>
