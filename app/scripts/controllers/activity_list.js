@@ -11,7 +11,7 @@ angular.module('partybidApp')
 
         $scope.activities = Activity.getActivities();
 
-        $scope.CreateButtonStatus = Price.hasOngoingPrice();
+        $scope.CreateButtonStatus = !Price.hasOngoingPrice();
 
         $scope.BackGroundColor = function(name){
             var ongoing_activity = Price.hasOngoingPrice() ? Price.getOngoingPrice().activity : Activity.getOngoingActivity().activity;

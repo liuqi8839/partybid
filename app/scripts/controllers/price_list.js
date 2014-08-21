@@ -9,14 +9,9 @@ angular.module('partybidApp')
 
         $scope.current_activity = Activity.getSelectedActivity();
 
-        $scope.PriceColor = function(count) {
-            if (Price.getOngoingPrice().activity == Activity.getSelectedActivity.activity) {
-                var background = (count == Price.getOngoingPrice().count) ? 'btn-warning' : '';
-            }
-            else{
-                background = '';
-            }
-            return background;
+        $scope.PriceColor = function(price) {
+            var background = (price == Price.getOngoingPrice().count) ? 'btn-warning' : '';
+            return (Price.getOngoingPrice().activity != Activity.getSelectedActivity.activity) ? background : '';
         };
 
         $scope.StartNewPrice = function() {
@@ -27,7 +22,7 @@ angular.module('partybidApp')
                 newPrice.runPrice();
                 $location.path('/price_activity');
             }
-            else{
+            else {
                 alert('没有报名者，不能进行竞价！');
             }
         };
@@ -40,7 +35,7 @@ angular.module('partybidApp')
         };
 
         $scope.BackToList = function () {
-            var temp = Activity.findBy({"selected": 1});
+            var temp = Activity.getSelectedActivity();
             var activity = new Activity(temp.activity,temp.status,temp.selected);
             activity.unPitch();
             $location.path('/');

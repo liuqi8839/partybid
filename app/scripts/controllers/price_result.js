@@ -19,7 +19,7 @@ angular.module('partybidApp')
             },3000);
 
         $scope.BackToPriceList = function () {
-            var temp = Price.findBy({"selected": 1});
+            var temp = Price.getSelectedPrice();
             var price = new Price(temp.activity , temp.count , temp.status , temp.selected);
             price.unPitch();
             $location.path('/price_list');

@@ -15,8 +15,9 @@ angular.module('partybidApp')
         $scope.ButtonText = determine_Button().name;
 
         $scope.StartActivity = function(){
-            var temp= Activity.findBy({"selected": 1});
-            var activity = new Activity(temp.activity,temp.status,temp.selected);
+            var temp= Activity.getSelectedActivity();
+            var activity = new Activity(temp.activity,temp.status,temp.selected)
+
             if (Activity.hasOngoingActivity() == false){
                 activity.runActivity();
             }
@@ -24,6 +25,7 @@ angular.module('partybidApp')
                 activity.stopActivity();
                 $location.path('/price_list');
             }
+
             $scope.ButtonStatus = determine_Button().status;
             $scope.ButtonText = determine_Button().name;
         };
@@ -38,7 +40,7 @@ angular.module('partybidApp')
         };
 
         $scope.BackToList = function () {
-            var temp = Activity.findBy({"selected": 1});
+            var temp = Activity.getSelectedActivity();
             var activity = new Activity(temp.activity,temp.status,temp.selected);
             activity.unPitch();
             $location.path('/')

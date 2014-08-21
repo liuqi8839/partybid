@@ -23,25 +23,25 @@ Price.prototype.newCount = function() {
 Price.prototype.pitchOn = function() {
     var prices = Price.getPrice();
     _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 1;
-    localStorage['Price'] = JSON.stringify(prices);
+    Price.setPrice(prices);
 };
 
 Price.prototype.unPitch = function() {
     var prices = Price.getPrice();
     _.findWhere(prices, {activity: this.activity ,count: this.count}).selected = 2;
-    localStorage['Price'] = JSON.stringify(prices);
+    Price.setPrice(prices);
 };
 
 Price.prototype.runPrice = function() {
     var prices = Price.getPrice();
-    _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 1;
-    localStorage['Price'] = JSON.stringify(prices);
-};
+    _.findWhere(prices, {activity: this.activity, count: this.count}).status = 1;
+    Price.setPrice(prices);
+}
 
 Price.prototype.stopPrice = function() {
     var prices = Price.getPrice();
     _.findWhere(prices, {activity: this.activity ,count: this.count}).status = 2;
-    localStorage['Price'] = JSON.stringify(prices);
+    Price.setPrice(prices);
 };
 
 Price.getAllCounts = function() {
