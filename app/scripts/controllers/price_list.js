@@ -15,7 +15,7 @@ angular.module('partybidApp')
         };
 
         $scope.StartNewPrice = function() {
-            if (SignUpInformation.prototype.isSigned() == true){
+            if (SignUpInformation.hasSignUpOfCurrentActivity() == true){
                 var  newPrice = new Price(Activity.getSelectedActivity().activity , 0 , 2 , 1);
                 newPrice.newCount();
                 newPrice.save();

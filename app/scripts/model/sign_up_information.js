@@ -42,29 +42,16 @@ SignUpInformation.prototype.isRepeat =  function() {
 };
 
 SignUpInformation.prototype.isNewSignUp =  function() {
-    var p = false;
-    var sign_up_information = SignUpInformation.getSignUpInformation();
-    for (var n = 0; n < sign_up_information.length; n++) {
-        if (this.phone_number == sign_up_information[n].phone_number
-            && sign_up_information[n].activity == Activity.getOngoingActivity().activity) {
-            p = true;
-            break;
+    var flag = false;
+    _.some(SignUpInformation.getSignUpInformation(), function(anySignUp) {
+        if ( this.phone_number == anySignUp.phone_number
+            && anySignUp.activity == Activity.getOngoingActivity().activity) {
+            flag = true;
         }
-    }
-    return p;
+    });
+    return flag;
 };
 
-SignUpInformation.prototype.isSigned =  function() {
-    var flag = false;
-    var sign_up_information = init_key("SignUpInformation");
-    for(var i = 0 ; i < sign_up_information.length ; i++) {
-        if (sign_up_information[i].activity == Activity.getSelectedActivity().activity) {
-            flag = true;
-            break;
-        }
-    }
-    return flag;
-}
 
 SignUpInformation.prototype.freshActivityList =  function() {
     var signUpScope = angular.element("#page_head").scope();
@@ -90,12 +77,15 @@ SignUpInformation.setSignUpInformation = function(signUpInformation) {
 SignUpInformation.getSignUpOfCurrentActivity = function() {
     var sign_up_messages = [];
     if(SignUpInformation.hasSignUpInformation() == true) {
-        var sign_up_information = SignUpInformation.getSignUpInformation();
-        _.some(sign_up_information , function(anySignUp) {
+        _.some(SignUpInformation.getSignUpInformation() , function(anySignUp) {
             if( anySignUp.activity == Activity.getSelectedActivity().activity) {
                 sign_up_messages.push({name: anySignUp.name , phone: anySignUp.phone_number});
             }
         });
     }
     return sign_up_messages;
+};
+
+SignUpInformation.hasSignUpOfCurrentActivity =  function() {
+    return (SignUpInformation.getSignUpOfCurrentActivity().length != 0);
 };
