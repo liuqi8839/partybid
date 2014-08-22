@@ -63,10 +63,27 @@ SignUpInformation.prototype.freshActivityList =  function() {
     }
 };
 
+SignUpInformation.hasSignUpInformation = function(){
+    return (SignUpInformation.getSignUpInformation() != []);
+};
+
 SignUpInformation.getSignUpInformation = function() {
     return init_key('SignUpInformation');
 };
 
 SignUpInformation.setSignUpInformation = function(signUpInformation) {
     localStorage['SignUpInformation'] = JSON.stringify(signUpInformation);
+};
+
+SignUpInformation.getSignUpOfCurrentActivity = function() {
+    var sign_up_messages = [];
+    if(SignUpInformation.hasSignUpInformation() == true) {
+        var sign_up_information = SignUpInformation.getSignUpInformation();
+        _.some(sign_up_information , function(anySignUp) {
+            if( anySignUp.activity == Activity.getSelectedActivity().activity) {
+                sign_up_messages.push({name: anySignUp.name , phone: anySignUp.phone_number});
+            }
+        });
+    }
+    return sign_up_messages;
 };

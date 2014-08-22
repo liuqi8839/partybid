@@ -6,17 +6,16 @@ angular.module('partybidApp')
 
         $scope.current_activity = Activity.getSelectedActivity().activity;
 
-        ($scope.page_head = function(){
-            $scope.sign_up_number = sign_up_sms().numbers;
-            $scope.Messages = sign_up_sms().messages;
+        ($scope.page_head = function() {
+            $scope.Messages = SignUpInformation.getSignUpOfCurrentActivity();
         })();
 
         $scope.ButtonStatus = determine_Button().status;
         $scope.ButtonText = determine_Button().name;
 
-        $scope.StartActivity = function(){
+        $scope.StartActivity = function() {
             var temp= Activity.getSelectedActivity();
-            var activity = new Activity(temp.activity,temp.status,temp.selected)
+            var activity = new Activity(temp.activity,temp.status,temp.selected);
 
             if (Activity.hasOngoingActivity() == false){
                 activity.runActivity();
@@ -30,7 +29,7 @@ angular.module('partybidApp')
             $scope.ButtonText = determine_Button().name;
         };
 
-        $scope.GoToPriceList=function(){
+        $scope.GoToPriceList=function() {
             if(Activity.hasOngoingActivity() == false) {
                 $location.path('/price_list');
             }
