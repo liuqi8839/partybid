@@ -36,63 +36,15 @@ var native_accessor = {
     sign_up_sms: function(message_json){
         var PhoneNumber = message_json.messages[0].phone;
         var message = message_json.messages[0].message;
-        sign_up_after_accept();
-        function sign_up_after_accept(){
-            if(Price.hasOngoingPrice() == true){
-                var SendMessage = 'Sorry，报名已经结束！';
-                native_accessor.send_sms(PhoneNumber, SendMessage);
-            }
-            else if(Activity.hasOngoingActivity() == false){
-                SendMessage = '活动尚未开始，请稍候！';
-                native_accessor.send_sms(PhoneNumber, SendMessage);
-            }
-            else{
-                sign_up_allow();
-            }
-        }
-        function sign_up_allow(){
-            if (sign_up_judge_new() == 2) {
-                var SendMessage = '您已报名！';
-                native_accessor.send_sms(PhoneNumber, SendMessage);
-            }else {
-                sign_up_add_new();
-                SendMessage='恭喜！报名成功！';
-                native_accessor.send_sms(PhoneNumber, SendMessage);
-                freshActivityList();
-            }
-        }
-        function sign_up_judge_new() {
-            var p = 1;
-            var sign_up_information = init_key('SignUpInformation');
-            for (var n = 0; n < sign_up_information.length; n++) {
-                if (PhoneNumber == sign_up_information[n].phone_number
-                    && sign_up_information[n].activity == Activity.getOngoingActivity().activity) {
-                    p = 2;
-                    break;
-                }
-            }
-            return p;
-        }
-
-        function sign_up_add_new() {
-            var  newSignUp = new Activity(Activity.getOngoingActivity().activity, message, PhoneNumber);
-            newSignUp.save();
-        }
-
-        function freshActivityList(){
-            var signUpScope = angular.element("#page_head").scope();
-            if(signUpScope!=undefined) {
-                if (typeof(signUpScope.page_head) == "function") {
-                    signUpScope.$apply(signUpScope.page_head.bind(signUpScope));
-                }
-            }
-        }
+        var  newSignUp = new SignUpInformation(Activity.getOngoingActivity().activity, message, PhoneNumber);
+        newSignUp.dealWith();
     },
 
     price_sms: function(message_json){
         var PhoneNumber = message_json.messages[0].phone;
         var message = message_json.messages[0].message;
         price_after_accept();
+
         function price_after_accept(){
             if(Activity.hasOngoingActivity() !=false) {
                 var SendMessage = '对不起，竞价尚未开始！';
@@ -112,6 +64,7 @@ var native_accessor = {
                 }
             }
         }
+
         function exit_sign_up(){
             var sign_up_information = init_key('SignUpInformation');
             var flag = 1;
@@ -167,7 +120,7 @@ var native_accessor = {
             }
         }
     }
-}
+};
 
 function notify_message_received(message_json) {
     native_accessor.receive_message(message_json);

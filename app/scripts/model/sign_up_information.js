@@ -12,7 +12,55 @@ function SignUpInformation(activity,message,phone_number) {
 SignUpInformation.prototype.save = function() {
     var signUpInformation = SignUpInformation.getSignUpInformation();
     signUpInformation.unshift(this);
-    Activity.setSignUpInformation(signUpInformation);
+    SignUpInformation.setSignUpInformation(signUpInformation);
+};
+
+SignUpInformation.prototype.dealWith =  function() {
+    if(Price.hasOngoingPrice() == true){
+        var SendMessage = 'Sorry，报名已经结束！';
+        native_accessor.send_sms(this.phone_number, SendMessage);
+    }
+    else if(Activity.hasOngoingActivity() == false){
+        SendMessage = '活动尚未开始，请稍候！';
+        native_accessor.send_sms(this.phone_number, SendMessage);
+    }
+    else{
+        this.isSigned();
+    }
+};
+
+SignUpInformation.prototype.isSigned =  function() {
+    if (this.isNewSignUp() == true) {
+        var SendMessage = '您已报名！';
+        native_accessor.send_sms(this.phone_number, SendMessage);
+    }else {
+        this.save();
+        SendMessage='恭喜！报名成功！';
+        native_accessor.send_sms(this.phone_number, SendMessage);
+        this.freshActivityList();
+    }
+};
+
+SignUpInformation.prototype.isNewSignUp =  function() {
+    var p = false;
+    var sign_up_information = SignUpInformation.getSignUpInformation();
+    for (var n = 0; n < sign_up_information.length; n++) {
+        if (this.phone_number == sign_up_information[n].phone_number
+            && sign_up_information[n].activity == Activity.getOngoingActivity().activity) {
+            p = true;
+            break;
+        }
+    }
+    return p;
+};
+
+SignUpInformation.prototype.freshActivityList =  function() {
+    var signUpScope = angular.element("#page_head").scope();
+    if(signUpScope!=undefined) {
+        if (typeof(signUpScope.page_head) == "function") {
+            signUpScope.$apply(signUpScope.page_head.bind(signUpScope));
+        }
+    }
 };
 
 SignUpInformation.getSignUpInformation = function() {
