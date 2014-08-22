@@ -15,15 +15,3 @@ function determine_StartButton(){
     }
     return{ongoing: ongoing , status: StartButtonStatus};
 }
-
-function judge_sign_up(){
-    var flag = 1;
-    var sign_up_information = init_key("SignUpInformation");
-    for(var i = 0 ; i < sign_up_information.length ; i++) {
-        if (sign_up_information[i].activity == Activity.getSelectedActivity().activity) {
-            flag = 2;
-            break;
-        }
-    }
-    return flag;
-}

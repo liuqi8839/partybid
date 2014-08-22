@@ -25,11 +25,11 @@ SignUpInformation.prototype.dealWith =  function() {
         native_accessor.send_sms(this.phone_number, SendMessage);
     }
     else{
-        this.isSigned();
+        this.isRepeat();
     }
 };
 
-SignUpInformation.prototype.isSigned =  function() {
+SignUpInformation.prototype.isRepeat =  function() {
     if (this.isNewSignUp() == true) {
         var SendMessage = '您已报名！';
         native_accessor.send_sms(this.phone_number, SendMessage);
@@ -53,6 +53,18 @@ SignUpInformation.prototype.isNewSignUp =  function() {
     }
     return p;
 };
+
+SignUpInformation.prototype.isSigned =  function() {
+    var flag = false;
+    var sign_up_information = init_key("SignUpInformation");
+    for(var i = 0 ; i < sign_up_information.length ; i++) {
+        if (sign_up_information[i].activity == Activity.getSelectedActivity().activity) {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+}
 
 SignUpInformation.prototype.freshActivityList =  function() {
     var signUpScope = angular.element("#page_head").scope();
