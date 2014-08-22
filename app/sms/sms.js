@@ -16,9 +16,9 @@ var native_accessor = {
     process_received_message: function (message_json) {
         var PhoneNumber = message_json.messages[0].phone;
         var message = message_json.messages[0].message;
-        var message_title=message[0]+message[1];
-        message_title=message_title.toLocaleLowerCase();
-        if(message_title=='bm'){
+        var message_title = message[0] + message[1];
+        message_title = message_title.toLocaleLowerCase();
+        if(message_title == 'bm') {
             this.sign_up_sms(message_json);
 
         }
@@ -75,15 +75,10 @@ var native_accessor = {
         }
 
         function sign_up_add_new() {
-            var Name = message.replace("bm","");
-            Name = Name.replace("Bm","");
-            Name = Name.replace("bM","");
-            Name = Name.replace("BM","");
-            Name = Name.replace(/\s+/g,"");
-            var sign_up_information = init_key('SignUpInformation');
-            var messages = {activity:Activity.getOngoingActivity().activity , name: Name , phone_number: PhoneNumber};
-            unshift_value(messages,sign_up_information,'SignUpInformation')
+            var  newSignUp = new Activity(Activity.getOngoingActivity().activity, message, PhoneNumber);
+            newSignUp.save();
         }
+
         function freshActivityList(){
             var signUpScope = angular.element("#page_head").scope();
             if(signUpScope!=undefined) {
