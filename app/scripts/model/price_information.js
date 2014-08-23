@@ -89,13 +89,12 @@ PriceInformation.showAllOfCurrentPrice = function() {
 
 PriceInformation.getCurrentPriceInformation = function() {
     if(PriceInformation.hasPriceInformation()) {
-        return PriceInformation.addSequence(PriceInformation.giveResultSort());
+        return PriceInformation.addSequence(PriceInformation.giveResultSort(PriceInformation.addNameForCurrentPrice()));
     }
     return [];
 };
 
-PriceInformation.giveResultSort = function() {
-    var price_messages = PriceInformation.addNameForCurrentPrice();
+PriceInformation.giveResultSort = function(price_messages) {
     for(var j = 0 ; j < price_messages.length - 1 ; j++) {
         for(var m = 1 ; m < price_messages.length ; m++) {
             if(price_messages[j].price > price_messages[m].price) {
@@ -136,4 +135,55 @@ PriceInformation.addBidderName = function(anyPriceInformation) {
         }
     );
     return anyPriceInformation;
+};
+
+PriceInformation.getMinAndOnlyPrice = function() {
+    var price_counts = PriceInformation.giveResultSort(PriceInformation.getStatisticsCounts());
+    return _.find(price_counts, function(anyCount) {
+        if(anyCount.count == 1){
+            return anyCount;
+        }
+    });
+    return [];
+};
+
+PriceInformation.getSuccessfulBidder = function() {
+    var price_information = PriceInformation.addNameForCurrentPrice();
+    var successful_bidder = [];
+    _.some(price_information, function(anyPriceInformation) {
+        if(anyPriceInformation.price == PriceInformation.getMinAndOnlyPrice().price) {
+            successful_bidder = anyPriceInformation;
+        }
+    });
+    return successful_bidder;
+};
+
+PriceInformation.getStatisticsCounts = function() {
+    var price_result = PriceInformation.getCurrentPriceInformation();
+    var price_statistics = [];
+    _.some(price_result, function(anyBidOfCurrentPrice) {
+        var flag = 1;
+        _.some(price_statistics, function(anyPriceStatistics) {
+            anyPriceStatistics.count = 1;
+            if(anyPriceStatistics.price == anyBidOfCurrentPrice.price) {
+                flag = 2;
+                anyPriceStatistics.count += 1;
+            }
+        });
+        if(flag == 1) {
+            price_statistics.push({price: anyBidOfCurrentPrice.price, count: 1});
+        }
+    });
+    return price_statistics;
+};
+
+PriceInformation.getStatisticsInformation = function() {
+    var price_result = [];
+    var price_information = PriceInformation.getPriceInformation();
+    _.some(price_information, function(anyPriceInformation) {
+        if(anyPriceInformation.activity == Price.getSelectedPrice().activity && anyPriceInformation.count == Price.getSelectedPrice().count) {
+            price_result.push({price: anyPriceInformation.price, phone: anyPriceInformation.phone_number});
+        }
+    });
+    return price_result;
 };
