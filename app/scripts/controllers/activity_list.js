@@ -5,7 +5,7 @@ angular.module('partybidApp')
 
     .controller('ActivityListCtrl', function ($scope, $location) {
 
-        if (Activity.hasActivities() == false) {
+        if (!Activity.hasActivities()) {
             $location.path('/create_activity');
         }
 
@@ -15,7 +15,8 @@ angular.module('partybidApp')
 
         $scope.BackGroundColor = function(name){
             var ongoing_activity = Price.hasOngoingPrice() ? Price.getOngoingPrice().activity : Activity.getOngoingActivity().activity;
-            return (name == ongoing_activity) ? 'btn-warning' : "";
+            var background = (name == ongoing_activity) ? 'btn-warning' : "";
+            return background;
         };
 
         $scope.GotoActivitySignUp = function (name) {

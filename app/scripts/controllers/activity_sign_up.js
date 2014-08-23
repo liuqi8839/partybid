@@ -16,24 +16,23 @@ angular.module('partybidApp')
             var temp= Activity.getSelectedActivity();
             var activity = new Activity(temp.activity,temp.status,temp.selected);
 
-            if (Activity.hasOngoingActivity() == false){
+            if (!Activity.hasOngoingActivity()){
                 activity.runActivity();
+                return $scope.Button = determine_Button();
             }
-            else if(confirm('您确定要结束本次报名吗？') == true){
+
+            if(confirm('您确定要结束本次报名吗？')){
                 activity.stopActivity();
                 $location.path('/price_list');
             }
 
-            $scope.Button = determine_Button();
         };
 
         $scope.GoToPriceList=function() {
-            if(Activity.hasOngoingActivity() == false) {
-                $location.path('/price_list');
+            if(Activity.hasOngoingActivity()) {
+                return alert('尚有报名未结束，不能开始竞价！')
             }
-            else{
-                alert('尚有报名未结束，不能开始竞价！')
-            }
+            $location.path('/price_list');
         };
 
         $scope.BackToList = function () {

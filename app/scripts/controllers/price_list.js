@@ -11,7 +11,8 @@ angular.module('partybidApp')
 
         $scope.PriceColor = function(price) {
             var background = (price == Price.getOngoingPrice().count) ? 'btn-warning' : '';
-            return (Price.getOngoingPrice().activity == Activity.getSelectedActivity().activity) ? background : '';
+            background =  (Price.getOngoingPrice().activity == Activity.getSelectedActivity().activity) ? background : '';
+            return background;
         };
 
         $scope.StartNewPrice = function() {

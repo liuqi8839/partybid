@@ -9,12 +9,6 @@ function SignUpInformation(activity,message,phone_number) {
     this.phone_number =phone_number;
 }
 
-SignUpInformation.prototype.save = function() {
-    var signUpInformation = SignUpInformation.getSignUpInformation();
-    signUpInformation.unshift(this);
-    SignUpInformation.setSignUpInformation(signUpInformation);
-};
-
 SignUpInformation.prototype.dealWith =  function() {
     if(Price.hasOngoingPrice()) {
         var SendMessage = 'Sorry，报名已经结束！';
@@ -43,6 +37,12 @@ SignUpInformation.prototype.isRepeat =  function() {
     return _.some(SignUpInformation.getSignUpInformation(), function(anySignUp) {
         return ((PhoneNumber == anySignUp.phone_number) && (anySignUp.activity == Activity.getOngoingActivity().activity));
     });
+};
+
+SignUpInformation.prototype.save = function() {
+    var signUpInformation = SignUpInformation.getSignUpInformation();
+    signUpInformation.unshift(this);
+    SignUpInformation.setSignUpInformation(signUpInformation);
 };
 
 SignUpInformation.prototype.freshActivityList =  function() {

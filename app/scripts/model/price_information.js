@@ -164,7 +164,6 @@ PriceInformation.getStatisticsCounts = function() {
     _.some(price_result, function(anyBidOfCurrentPrice) {
         var flag = 1;
         _.some(price_statistics, function(anyPriceStatistics) {
-            anyPriceStatistics.count = 1;
             if(anyPriceStatistics.price == anyBidOfCurrentPrice.price) {
                 flag = 2;
                 anyPriceStatistics.count += 1;

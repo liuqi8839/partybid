@@ -2,46 +2,39 @@ function Activity(activity, status, selected) {
     this.activity = activity;
     this.status = status;
     this.selected = selected;
+    this.activities = Activity.getActivities();
 }
 
-Activity.prototype.save = function() {
-    var activities = Activity.getActivities();
-    activities.unshift(this);
-    Activity.setActivities(activities);
-};
-
 Activity.prototype.pitchOn = function() {
-    var activities = Activity.getActivities();
-    _.findWhere(activities, {activity: this.activity} || {activity: ''} ).selected = 1;
-    localStorage['Activities'] = JSON.stringify(activities);
+    _.findWhere(this.activities, {activity: this.activity} || {activity: ''}).selected = 1;
+    Activity.setActivities(this.activities);
 };
 
 Activity.prototype.unPitch = function() {
-    var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).selected = 2;
-    localStorage['Activities'] = JSON.stringify(activities);
+    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).selected = 2;
+    Activity.setActivities(this.activities);
 };
 
 Activity.prototype.runActivity = function() {
-    var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = 1;
-    localStorage['Activities'] = JSON.stringify(activities);
+    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).status = 1;
+    Activity.setActivities(this.activities);
 };
 
 Activity.prototype.stopActivity = function() {
-    var activities = Activity.getActivities();
-    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = 2;
-    localStorage['Activities'] = JSON.stringify(activities);
+    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).status = 2;
+    Activity.setActivities(this.activities);
 };
 
-Activity.findRepeat = function(name) {
-    return _.some(Activity.getActivities(), function(anyActivity) {
-        return anyActivity.activity == name;
+Activity.prototype.findRepeat = function() {
+    var newActivity = this.activity;
+    return _.find(Activity.getActivities(), function(anyActivity) {
+        return anyActivity.activity == newActivity;
     });
 };
 
-Activity.findBy = function(value){
-    return (_.findWhere(Activity.getActivities(), value)|| [{activity: ''}]);
+Activity.prototype.save = function() {
+    this.activities.unshift(this);
+    Activity.setActivities(this.activities);
 };
 
 Activity.setActivities = function (activities) {
@@ -53,7 +46,7 @@ Activity.getActivities = function () {
 };
 
 Activity.hasActivities = function(){
-    return (Activity.getActivities() != []);
+    return (Activity.getActivities() != '');
 };
 
 Activity.hasOngoingActivity = function() {
@@ -70,4 +63,8 @@ Activity.getOngoingActivity = function()  {
 
 Activity.getSelectedActivity = function() {
     return (_.findWhere(Activity.getActivities(), {selected: 1}) || {activity: ''});
+};
+
+Activity.findBy = function(value){
+    return (_.findWhere(Activity.getActivities(), value)|| [{activity: ''}]);
 };
