@@ -22,15 +22,18 @@
         </button>
     </div>
 </header>
+
 <div class="wrapper scrollable">
     <div class="form-wrapper" ng-repeat="SMS in statistics_SMS">
         <a class="btn-style btn-3">￥{{SMS.price}}<i>{{SMS.count}}人</i></a>
     </div>
 </div>
+
 <footer align="center">
     <p>
     <h4 ><i>竞价结果：￥{{successful_bidder.price}}</i>～～～～出价者：<i>{{successful_bidder.name}}:{{successful_bidder.phone}}</i></h4>
     </p>
 </footer>
+
 </body>
 </html>

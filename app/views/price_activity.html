@@ -16,12 +16,11 @@
         </button>
     </div>
     <div class="header-right">
-        <button ng-disabled="{{EndButtonStatus==0}}" class="side-slide-trigger btn btn-primary" ng-click="EndPrice()">
+        <button ng-disabled="!{{EndButtonStatus}}" class="side-slide-trigger btn btn-primary" ng-click="EndPrice()">
             结束
         </button>
     </div>
 </header>
-
 <div id="prices" class="wrapper scrollable">
     <div class="form-wrapper" ng-repeat="SMS in Messages">
         <li><h4>{{SMS.sequence}}.{{SMS.name}}</h4><p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{SMS.phone}}</p></li>

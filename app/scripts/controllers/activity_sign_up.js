@@ -10,8 +10,7 @@ angular.module('partybidApp')
             $scope.Messages = SignUpInformation.getSignUpOfCurrentActivity();
         })();
 
-        $scope.ButtonStatus = determine_Button().status;
-        $scope.ButtonText = determine_Button().name;
+        $scope.Button = determine_Button();
 
         $scope.StartActivity = function() {
             var temp= Activity.getSelectedActivity();
@@ -25,8 +24,7 @@ angular.module('partybidApp')
                 $location.path('/price_list');
             }
 
-            $scope.ButtonStatus = determine_Button().status;
-            $scope.ButtonText = determine_Button().name;
+            $scope.Button = determine_Button();
         };
 
         $scope.GoToPriceList=function() {

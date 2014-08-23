@@ -16,9 +16,9 @@
         </button>
     </div>
 
-    <div class="header-right">
-        <button  ng-click="StartActivity()" ng-disabled="{{ButtonStatus==0}}" class="side-slide-trigger btn btn-primary" >
-            {{ButtonText}}
+    <div class="header-right" >
+        <button  ng-click="StartActivity()" ng-disabled="!{{Button.status}}" class="side-slide-trigger btn btn-primary" >
+            {{Button.name}}
         </button>
     </div>
 </header>

@@ -16,7 +16,7 @@ angular.module('partybidApp')
         $scope.current_price = Price.getSelectedPrice();
 
         ($scope.prices = function(){
-            $scope.Messages = price_sms();
+            $scope.Messages = PriceInformation.showAllOfCurrentPrice();
         })();
 
         $scope.EndButtonStatus = determine_EndButton();

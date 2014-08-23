@@ -3,7 +3,7 @@ angular.module('partybidApp')
 
     .controller('PriceListCtrl', function ($scope, $location) {
 
-        $scope.StartButtonStatus = determine_StartButton().status;
+        $scope.StartButtonStatus = Price.hasOngoingPrice();
 
         $scope.Prices = Price.getAllCounts();
 
@@ -11,20 +11,18 @@ angular.module('partybidApp')
 
         $scope.PriceColor = function(price) {
             var background = (price == Price.getOngoingPrice().count) ? 'btn-warning' : '';
-            return (Price.getOngoingPrice().activity != Activity.getSelectedActivity.activity) ? background : '';
+            return (Price.getOngoingPrice().activity == Activity.getSelectedActivity().activity) ? background : '';
         };
 
         $scope.StartNewPrice = function() {
-            if (SignUpInformation.hasSignUpOfCurrentActivity() == true){
-                var  newPrice = new Price(Activity.getSelectedActivity().activity , 0 , 2 , 1);
-                newPrice.newCount();
-                newPrice.save();
-                newPrice.runPrice();
-                $location.path('/price_activity');
+            if (!SignUpInformation.hasSignUpOfCurrentActivity()){
+                return alert('没有报名者，不能进行竞价！');
             }
-            else {
-                alert('没有报名者，不能进行竞价！');
-            }
+            var  newPrice = new Price(Activity.getSelectedActivity().activity , 0 , 2 , 1);
+            newPrice.newCount();
+            newPrice.save();
+            newPrice.runPrice();
+            $location.path('/price_activity');
         };
 
         $scope.GotoPriceActivity = function (count) {

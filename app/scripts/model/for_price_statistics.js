@@ -29,7 +29,7 @@ function successful_bid() {
 }
 
 function successful_bidder() {
-    var price_information = result_add_name();
+    var price_information = PriceInformation.addNameForCurrentPrice();
     for(var i = 0 ; i < price_information.length ; i++) {
         if(price_information[i].price == successful_bid().price) {
             var successful_bidder = price_information[i];

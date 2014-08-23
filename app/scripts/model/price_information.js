@@ -80,18 +80,60 @@ PriceInformation.setPriceInformation = function(priceInformation) {
     localStorage['PriceInformation'] = JSON.stringify(priceInformation);
 };
 
-//SignUpInformation.getSignUpOfCurrentActivity = function() {
-//    var sign_up_messages = [];
-//    if(SignUpInformation.hasSignUpInformation() == true) {
-//        _.some(SignUpInformation.getSignUpInformation() , function(anySignUp) {
-//            if( anySignUp.activity == Activity.getSelectedActivity().activity) {
-//                sign_up_messages.push({name: anySignUp.name , phone: anySignUp.phone_number});
-//            }
-//        });
-//    }
-//    return sign_up_messages;
-//};
-//
-//SignUpInformation.hasSignUpOfCurrentActivity =  function() {
-//    return (SignUpInformation.getSignUpOfCurrentActivity().length != 0);
-//};
+PriceInformation.showAllOfCurrentPrice = function() {
+    if(PriceInformation.hasPriceInformation()) {
+        return PriceInformation.addSequence(PriceInformation.addNameForCurrentPrice());
+    }
+    return [];
+};
+
+PriceInformation.getCurrentPriceInformation = function() {
+    if(PriceInformation.hasPriceInformation()) {
+        return PriceInformation.addSequence(PriceInformation.giveResultSort());
+    }
+    return [];
+};
+
+PriceInformation.giveResultSort = function() {
+    var price_messages = PriceInformation.addNameForCurrentPrice();
+    for(var j = 0 ; j < price_messages.length - 1 ; j++) {
+        for(var m = 1 ; m < price_messages.length ; m++) {
+            if(price_messages[j].price > price_messages[m].price) {
+                var temp = price_messages[j];
+                price_messages[j] = price_messages[m];
+                price_messages[m] = temp;
+            }
+        }
+    }
+    return price_messages;
+};
+
+PriceInformation.addSequence = function(price_messages) {
+    var sequence_number = 0;
+    _.some(price_messages, function(anyPriceMessage) {
+        sequence_number += 1;
+        anyPriceMessage.sequence = sequence_number;
+    });
+    return price_messages;
+};
+
+PriceInformation.addNameForCurrentPrice = function() {
+    var price_messages = [];
+    _.some(PriceInformation.getPriceInformation(), function(anyPriceInformation) {
+        if(anyPriceInformation.activity == Price.getSelectedPrice().activity && anyPriceInformation.count == Price.getSelectedPrice().count) {
+            anyPriceInformation = PriceInformation.addBidderName(anyPriceInformation);
+            price_messages.push({ price: anyPriceInformation.price, name: anyPriceInformation.name, phone: anyPriceInformation.phone_number});
+        }
+    });
+    return price_messages;
+};
+
+PriceInformation.addBidderName = function(anyPriceInformation) {
+    _.some(SignUpInformation.getSignUpInformation(), function(anySignUpInformation) {
+            if(anySignUpInformation.phone_number == anyPriceInformation.phone_number) {
+                anyPriceInformation.name = anySignUpInformation.name;
+            }
+        }
+    );
+    return anyPriceInformation;
+};

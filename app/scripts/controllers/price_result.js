@@ -6,8 +6,8 @@ angular.module('partybidApp')
     .controller('PriceResultCtrl', function ($scope, $location,$routeParams) {
 
         $scope.current_price = Price.getSelectedPrice();
-        $scope.result_numbers = result_sms().numbers;
-        $scope.result_messages = result_sms().messages;
+        $scope.result_numbers = PriceInformation.getCurrentPriceInformation().length;
+        $scope.result_messages = PriceInformation.getCurrentPriceInformation();
         $scope.successful_bidder = successful_bidder();
 
         var show = $routeParams.show_hide;
