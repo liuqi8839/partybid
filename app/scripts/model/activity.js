@@ -35,15 +35,13 @@ Activity.prototype.stopActivity = function() {
 };
 
 Activity.findRepeat = function(name) {
-    var activities = Activity.getActivities();
-    return _.some(activities , function(anyActivity) {
-        return anyActivity.activity === name
+    return _.some(Activity.getActivities(), function(anyActivity) {
+        return anyActivity.activity == name;
     });
 };
 
 Activity.findBy = function(value){
-    var activities = Activity.getActivities();
-    return (_.findWhere(activities , value)|| [{activity: ''}]);
+    return (_.findWhere(Activity.getActivities(), value)|| [{activity: ''}]);
 };
 
 Activity.setActivities = function (activities) {
@@ -67,11 +65,9 @@ Activity.hasSelectedActivity = function(){
 };
 
 Activity.getOngoingActivity = function()  {
-    var activities = Activity.getActivities();
-    return (_.findWhere(activities, {status: 1}) || {activity: ''});
+    return (_.findWhere(Activity.getActivities(), {status: 1}) || {activity: ''});
 };
 
 Activity.getSelectedActivity = function() {
-    var activities = Activity.getActivities();
-    return (_.findWhere(activities, {selected: 1}) || {activity: ''});
+    return (_.findWhere(Activity.getActivities(), {selected: 1}) || {activity: ''});
 };

@@ -16,47 +16,39 @@ SignUpInformation.prototype.save = function() {
 };
 
 SignUpInformation.prototype.dealWith =  function() {
-    if(Price.hasOngoingPrice() == true){
+    if(Price.hasOngoingPrice()) {
         var SendMessage = 'Sorry，报名已经结束！';
-        native_accessor.send_sms(this.phone_number, SendMessage);
+       return native_accessor.send_sms(this.phone_number, SendMessage);
     }
-    else if(Activity.hasOngoingActivity() == false){
+    if(!Activity.hasOngoingActivity()) {
         SendMessage = '活动尚未开始，请稍候！';
-        native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, SendMessage);
     }
-    else{
-        this.isRepeat();
+    this.signUp();
+};
+
+SignUpInformation.prototype.signUp =  function() {
+    if (this.isRepeat()) {
+        var SendMessage = '您已报名！';
+        return native_accessor.send_sms(this.phone_number, SendMessage);
     }
+    this.save();
+    SendMessage='恭喜！报名成功！';
+    native_accessor.send_sms(this.phone_number, SendMessage);
+    this.freshActivityList();
 };
 
 SignUpInformation.prototype.isRepeat =  function() {
-    if (this.isNewSignUp() == true) {
-        var SendMessage = '您已报名！';
-        native_accessor.send_sms(this.phone_number, SendMessage);
-    }else {
-        this.save();
-        SendMessage='恭喜！报名成功！';
-        native_accessor.send_sms(this.phone_number, SendMessage);
-        this.freshActivityList();
-    }
-};
-
-SignUpInformation.prototype.isNewSignUp =  function() {
-    var flag = false;
-    _.some(SignUpInformation.getSignUpInformation(), function(anySignUp) {
-        if ( this.phone_number == anySignUp.phone_number
-            && anySignUp.activity == Activity.getOngoingActivity().activity) {
-            flag = true;
-        }
+    var PhoneNumber = this.phone_number;
+    return _.some(SignUpInformation.getSignUpInformation(), function(anySignUp) {
+        return ((PhoneNumber == anySignUp.phone_number) && (anySignUp.activity == Activity.getOngoingActivity().activity));
     });
-    return flag;
 };
-
 
 SignUpInformation.prototype.freshActivityList =  function() {
     var signUpScope = angular.element("#page_head").scope();
-    if(signUpScope!=undefined) {
-        if (typeof(signUpScope.page_head) == "function") {
+    if(signUpScope != undefined){
+        if(typeof(signUpScope.page_head) == "function") {
             signUpScope.$apply(signUpScope.page_head.bind(signUpScope));
         }
     }
@@ -76,13 +68,11 @@ SignUpInformation.setSignUpInformation = function(signUpInformation) {
 
 SignUpInformation.getSignUpOfCurrentActivity = function() {
     var sign_up_messages = [];
-    if(SignUpInformation.hasSignUpInformation() == true) {
-        _.some(SignUpInformation.getSignUpInformation() , function(anySignUp) {
-            if( anySignUp.activity == Activity.getSelectedActivity().activity) {
-                sign_up_messages.push({name: anySignUp.name , phone: anySignUp.phone_number});
-            }
-        });
-    }
+    _.some(SignUpInformation.getSignUpInformation(), function(anySignUp) {
+        if( anySignUp.activity == Activity.getSelectedActivity().activity) {
+            sign_up_messages.push({name: anySignUp.name, phone: anySignUp.phone_number});
+        }
+    });
     return sign_up_messages;
 };
 

@@ -9,15 +9,13 @@ angular.module('partybidApp')
         $scope.activity_back = Activity.hasActivities();
 
         $scope.CreateActivity = function(new_activity)  {
-            if (Activity.findRepeat(new_activity) == true) {
-                $scope.tips = '活动名称重复';
+            if (Activity.findRepeat(new_activity)) {
+                return $scope.tips = '活动名称重复';
             }
-            else if (Activity.findRepeat(new_activity) == false ) {
-                $scope.tips = '';
-                var  newActivity = new Activity(new_activity, 2, 1);
-                newActivity.save();
-                $location.path('/activity_sign_up');
-            }
+            $scope.tips = '';
+            var  newActivity = new Activity(new_activity, 2, 1);
+            newActivity.save();
+            $location.path('/activity_sign_up');
         };
 
         $scope.GotoActivityList = function () {

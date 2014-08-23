@@ -43,7 +43,11 @@ var native_accessor = {
     price_sms: function(message_json){
         var PhoneNumber = message_json.messages[0].phone;
         var message = message_json.messages[0].message;
-        price_after_accept();
+
+        var  newPrice = new PriceInformation(Price.getOngoingPrice().activity, Price.getOngoingPrice().count, message, PhoneNumber);
+        newPrice.dealWith();
+
+//        price_after_accept();
 
         function price_after_accept(){
             if(Activity.hasOngoingActivity() !=false) {
