@@ -19,18 +19,13 @@ var native_accessor = {
         var message_title = message[0] + message[1];
         message_title = message_title.toLocaleLowerCase();
         if(message_title == 'bm') {
-            this.sign_up_sms(message_json);
-
+            return this.sign_up_sms(message_json);
         }
-        else{
-            if(message_title == 'jj'){
-                this.price_sms(message_json);
-            }
-            else{
-                var SendMessage = '对不起，请发送正确的格式！';
-                native_accessor.send_sms(PhoneNumber, SendMessage);
-            }
+        if(message_title == 'jj'){
+            return this.price_sms(message_json);
         }
+        var SendMessage = '对不起，请发送正确的格式！';
+        native_accessor.send_sms(PhoneNumber, SendMessage);
     },
 
     sign_up_sms: function(message_json){

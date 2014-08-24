@@ -3,27 +3,30 @@ function Price(activity, count, status, selected) {
     this.count = count;
     this.status = status;
     this.selected = selected;
-    this.prices = Price.getPrice();
 }
 
 Price.prototype.pitchOn = function() {
-    _.findWhere(this.prices, {activity: this.activity, count: this.count}).selected = 1;
-    Price.setPrice(this.prices);
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity, count: this.count}).selected = true;
+    Price.setPrice(prices);
 };
 
 Price.prototype.unPitch = function() {
-    _.findWhere(this.prices, {activity: this.activity, count: this.count}).selected = 2;
-    Price.setPrice(this.prices);
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity, count: this.count}).selected = false;
+    Price.setPrice(prices);
 };
 
 Price.prototype.runPrice = function() {
-    _.findWhere(this.prices, {activity: this.activity, count: this.count}).status = 1;
-    Price.setPrice(this.prices);
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity, count: this.count}).status = true;
+    Price.setPrice(prices);
 };
 
 Price.prototype.stopPrice = function() {
-    _.findWhere(this.prices, {activity: this.activity, count: this.count}).status = 2;
-    Price.setPrice(this.prices);
+    var prices = Price.getPrice();
+    _.findWhere(prices, {activity: this.activity, count: this.count}).status = false;
+    Price.setPrice(prices);
 };
 
 Price.prototype.newCount = function() {
@@ -34,8 +37,9 @@ Price.prototype.newCount = function() {
 };
 
 Price.prototype.save = function() {
-    this.prices.unshift(this);
-    Price.setPrice(this.prices);
+    var prices = Price.getPrice();
+    prices.unshift(this);
+    Price.setPrice(prices);
 };
 
 Price.setPrice = function (prices) {
@@ -59,11 +63,11 @@ Price.hasSelectedPrice = function() {
 };
 
 Price.getOngoingPrice = function() {
-    return ( _.findWhere(Price.getPrice(), {status: 1}) || {activity: ''} );
+    return ( _.findWhere(Price.getPrice(), {status: true}) || {activity: ''} );
 };
 
 Price.getSelectedPrice = function() {
-    return ( _.findWhere(Price.getPrice(), {selected: 1}) || {activity: ''} );
+    return ( _.findWhere(Price.getPrice(), {selected: true}) || {activity: ''} );
 };
 
 Price.getAllCounts = function() {

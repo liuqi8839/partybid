@@ -2,27 +2,30 @@ function Activity(activity, status, selected) {
     this.activity = activity;
     this.status = status;
     this.selected = selected;
-    this.activities = Activity.getActivities();
 }
 
 Activity.prototype.pitchOn = function() {
-    _.findWhere(this.activities, {activity: this.activity} || {activity: ''}).selected = 1;
-    Activity.setActivities(this.activities);
+    var activities = Activity.getActivities();
+    _.findWhere(activities, {activity: this.activity} || {activity: ''}).selected = true;
+    Activity.setActivities(activities);
 };
 
 Activity.prototype.unPitch = function() {
-    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).selected = 2;
-    Activity.setActivities(this.activities);
+    var activities = Activity.getActivities();
+    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).selected = false;
+    Activity.setActivities(activities);
 };
 
 Activity.prototype.runActivity = function() {
-    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).status = 1;
-    Activity.setActivities(this.activities);
+    var activities = Activity.getActivities();
+    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = true;
+    Activity.setActivities(activities);
 };
 
 Activity.prototype.stopActivity = function() {
-    (_.findWhere(this.activities, {activity: this.activity}) || {activity: ''}).status = 2;
-    Activity.setActivities(this.activities);
+    var activities = Activity.getActivities();
+    (_.findWhere(activities, {activity: this.activity}) || {activity: ''}).status = false;
+    Activity.setActivities(activities);
 };
 
 Activity.prototype.findRepeat = function() {
@@ -33,8 +36,9 @@ Activity.prototype.findRepeat = function() {
 };
 
 Activity.prototype.save = function() {
-    this.activities.unshift(this);
-    Activity.setActivities(this.activities);
+    var activities = Activity.getActivities();
+    activities.unshift(this);
+    Activity.setActivities(activities);
 };
 
 Activity.setActivities = function (activities) {
@@ -58,11 +62,11 @@ Activity.hasSelectedActivity = function(){
 };
 
 Activity.getOngoingActivity = function()  {
-    return (_.findWhere(Activity.getActivities(), {status: 1}) || {activity: ''});
+    return (_.findWhere(Activity.getActivities(), {status: true}) || {activity: ''});
 };
 
 Activity.getSelectedActivity = function() {
-    return (_.findWhere(Activity.getActivities(), {selected: 1}) || {activity: ''});
+    return (_.findWhere(Activity.getActivities(), {selected: true}) || {activity: ''});
 };
 
 Activity.findBy = function(value){

@@ -32,9 +32,7 @@ function determine_Button() {
 function determine_EndButton() {
     var prices = Price.getPrice();
     return _.some(prices, function(anyPrice) {
-        if(anyPrice.selected == 1 && anyPrice.status == 1){
-            return true;
-        }
+        return (anyPrice.selected == 1 && anyPrice.status == 1)
     });
     return false;
 }

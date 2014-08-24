@@ -1,6 +1,4 @@
-/**
- * Created by liuqi on 14-7-23.
- */
+
 angular.module('partybidApp')
     .controller('ActivitySignUpCtrl', function ($scope, $location) {
 
@@ -15,17 +13,14 @@ angular.module('partybidApp')
         $scope.StartActivity = function() {
             var temp= Activity.getSelectedActivity();
             var activity = new Activity(temp.activity,temp.status,temp.selected);
-
             if (!Activity.hasOngoingActivity()){
                 activity.runActivity();
                 return $scope.Button = determine_Button();
             }
-
             if(confirm('您确定要结束本次报名吗？')){
                 activity.stopActivity();
                 $location.path('/price_list');
             }
-
         };
 
         $scope.GoToPriceList=function() {
@@ -41,5 +36,4 @@ angular.module('partybidApp')
             activity.unPitch();
             $location.path('/')
         }
-
     });

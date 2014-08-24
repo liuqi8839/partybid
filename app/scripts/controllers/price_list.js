@@ -19,7 +19,7 @@ angular.module('partybidApp')
             if (!SignUpInformation.hasSignUpOfCurrentActivity()){
                 return alert('没有报名者，不能进行竞价！');
             }
-            var  newPrice = new Price(Activity.getSelectedActivity().activity , 0 , 2 , 1);
+            var  newPrice = new Price(Activity.getSelectedActivity().activity , 0 , 2 , true);
             newPrice.newCount();
             newPrice.save();
             newPrice.runPrice();

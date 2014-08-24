@@ -1,6 +1,4 @@
-/**
- * Created by liuqi on 14-8-8.
- */
+
 angular.module('partybidApp')
 
     .controller('PriceStatisticsCtrl', function ($scope, $location) {
