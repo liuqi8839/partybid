@@ -11,24 +11,20 @@ function SignUpInformation(activity,message,phone_number) {
 
 SignUpInformation.prototype.dealWith =  function() {
     if(Price.hasOngoingPrice()) {
-        var SendMessage = 'Sorry，报名已经结束！';
-       return native_accessor.send_sms(this.phone_number, SendMessage);
+       return native_accessor.send_sms(this.phone_number, 'Sorry，报名已经结束！');
     }
     if(!Activity.hasOngoingActivity()) {
-        SendMessage = '活动尚未开始，请稍候！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, '活动尚未开始，请稍候！');
     }
     this.signUp();
 };
 
 SignUpInformation.prototype.signUp =  function() {
     if (this.isRepeat()) {
-        var SendMessage = '您已报名！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, '您已报名！');
     }
     this.save();
-    SendMessage='恭喜！报名成功！';
-    native_accessor.send_sms(this.phone_number, SendMessage);
+    native_accessor.send_sms(this.phone_number, '恭喜！报名成功！');
     this.freshActivityList();
 };
 

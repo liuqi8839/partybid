@@ -18,33 +18,18 @@ var native_accessor = {
         var message = message_json.messages[0].message;
         var message_title = message[0] + message[1];
         message_title = message_title.toLocaleLowerCase();
-        if(message_title == 'bm') {
-            return this.sign_up_sms(message_json);
+        if (message_title == 'bm') {
+            var newSignUp = new SignUpInformation(Activity.getOngoingActivity().activity, message, PhoneNumber);
+            return newSignUp.dealWith();
         }
-        if(message_title == 'jj'){
-            return this.price_sms(message_json);
+        if (message_title == 'jj') {
+            var newPrice = new PriceInformation(Price.getOngoingPrice().activity, Price.getOngoingPrice().count, message, PhoneNumber);
+            return newPrice.dealWith();
         }
-        var SendMessage = '对不起，请发送正确的格式！';
-        native_accessor.send_sms(PhoneNumber, SendMessage);
-    },
-
-    sign_up_sms: function(message_json){
-        var PhoneNumber = message_json.messages[0].phone;
-        var message = message_json.messages[0].message;
-        var  newSignUp = new SignUpInformation(Activity.getOngoingActivity().activity, message, PhoneNumber);
-        newSignUp.dealWith();
-    },
-
-    price_sms: function(message_json){
-        var PhoneNumber = message_json.messages[0].phone;
-        var message = message_json.messages[0].message;
-
-        var  newPrice = new PriceInformation(Price.getOngoingPrice().activity, Price.getOngoingPrice().count, message, PhoneNumber);
-        newPrice.dealWith();
+        native_accessor.send_sms(PhoneNumber, '对不起，请发送正确的格式！');
     }
 };
 
 function notify_message_received(message_json) {
     native_accessor.receive_message(message_json);
 }
-

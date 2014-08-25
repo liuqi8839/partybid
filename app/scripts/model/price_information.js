@@ -12,16 +12,13 @@ function PriceInformation(activity, count, message, phone_number) {
 
 PriceInformation.prototype.dealWith =  function() {
     if(Activity.hasOngoingActivity()) {
-        var SendMessage = '对不起，竞价尚未开始！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, '出价没没有开始呢！');
     }
     if(!Price.hasOngoingPrice()) {
-        SendMessage = 'Sorry，出价已经结束！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, 'Sorry，出价已经结束！');
     }
     if(!this.isSigned()) {
-        SendMessage = '对不起，您未报名，不能参与竞价！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return native_accessor.send_sms(this.phone_number, '对不起，您未报名，不能参与竞价！');
     }
     this.judgePrice();
 };
@@ -35,16 +32,14 @@ PriceInformation.prototype.isSigned = function() {
 
 PriceInformation.prototype.judgePrice = function() {
     if (this.isRepeat() == true) {
-        var SendMessage = '您已经出价啦！';
-        return native_accessor.send_sms(this.phone_number, SendMessage);
+        return  native_accessor.send_sms(this.phone_number, '您已经出价啦！');
     }
     this.priceRight();
 };
 
 PriceInformation.prototype.priceRight = function() {
     this.save();
-    var SendMessage='恭喜！出价成功！';
-    native_accessor.send_sms(this.phone_number, SendMessage);
+    native_accessor.send_sms(this.phone_number, '恭喜！出价成功！');
     this.freshPriceList();
 };
 
